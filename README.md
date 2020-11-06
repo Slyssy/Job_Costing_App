@@ -23,16 +23,19 @@ Team Green app will make user experience with project management tool friendlier
 Our app will allow for the leads to see progress in the financial and day to day workload. We are limiting the back and forth of chasing employees around for timesheets and daily progress.
 
 
-Start Date | Expected Completion Date /br
-| Create ERD and Project Planning | 10/24/2020 | 11/5/2020 /br
-| Content Model | 11/4/2020 | 11/6/2020 /br
-| Wireframes of the Routes | 11/4/2020 | 11/9/2020 /br
-| Create PostgreSQL db | 11/10/2020 | 11/14/2020 /br
-| Endpoints | 11/10/2020 | 11/14/2020 /br
-| Develop Flask Routes | 11/10/2020 | 11/14/2020 /br
-| Develop Back End Ideas, Process Improvements and completing Issues | 11/10/2020 | TBD /br
-| Data Visualization and Front- End Development | 11/14/2020 | TBD /br
-| Completing of Project | 10/24/2020 | Around December 5th
+| Task | Start Date | Completion Date | 
+| :------------- | :----------: | -----------: |
+| Create ERD and Project Planning | 10/24/2020 | 11/5/2020 |
+| Content Model | 11/4/2020 | 11/6/2020 |
+| Wireframes of the Routes | 11/4/2020 | 11/9/2020 |
+| Create PostgreSQL db | 11/10/2020 | 11/14/2020 |
+| Endpoints | 11/10/2020 | 11/14/2020 |
+| Develop Flask Routes | 11/10/2020 | 11/14/2020 |
+| Develop Back End Ideas, Process Improvements and completing Issues | 11/10/2020 | TBD |
+| Data Visualization and Front- End Development | 11/14/2020 | TBD |
+| Completing of Project | 10/24/2020 | Around December 5th |
+
+
 
 With our teams experience we plan to bring the best, newest product to the table. The tools we will be using to create the app will include the following: Python, SQL Alchemy, Flask, Jinja templating, HTML/CSS, PostgreSQL, Plot.ly or D3 for Data Visualizations.
 
