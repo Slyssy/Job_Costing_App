@@ -23,12 +23,12 @@ Team Green app will make user experience with project management tool friendlier
 Our app will allow for the leads to see progress in the financial and day to day workload. We are limiting the back and forth of chasing employees around for timesheets and daily progress.
 
 |
- | Start Date | Expected Completion Date |
+ | Start Date | Expected Completion Date |/br
 | --- | --- | --- |
-| Create ERD and Project Planning | 10/24/2020 | 11/5/2020 |
-| Gathering of Data and Front- End Information | 11/3/2020 | TBD |
-| Develop Back End Ideas, Process Improvements and completing Issues | 11/2/2020 | TBD |
-| Completing of Project | 10/24/2020 | TBD |
+| Create ERD and Project Planning | 10/24/2020 | 11/5/2020 |/br
+| Gathering of Data and Front- End Information | 11/3/2020 | TBD |/br
+| Develop Back End Ideas, Process Improvements and completing Issues | 11/2/2020 | TBD |/br
+| Completing of Project | 10/24/2020 | TBD |/br
 
 With our teams experience we plan to bring the best, newest product to the table. The tools we will be using to create the app will include the following, Python, Data Visualization, Webscraping, HTML, Mongo DB and CSS.
 
