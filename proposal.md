@@ -23,7 +23,7 @@ Team Green app will make user experience with project management tool friendlier
 Our app will allow for the leads to see progress in the financial and day to day workload. We are limiting the back and forth of chasing employees around for timesheets and daily progress.
 
 |
- | Start Date | Expected Completion Date |/br
+ | Start Date | Expected Completion Date |
 | --- | --- | --- |
 | Create ERD and Project Planning | 10/24/2020 | 11/5/2020 |/br
 | Gathering of Data and Front- End Information | 11/3/2020 | TBD |/br
