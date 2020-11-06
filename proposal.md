@@ -1,4 +1,4 @@
-**TEAM GREEN**
+**TEAM GREEN APP**
 
 **Alicia Pelkey – Data Engineer &amp; Modeler**
 
@@ -32,6 +32,6 @@ Our app will allow for the leads to see progress in the financial and day to day
 
 With our teams experience we plan to bring the best, newest product to the table. The tools we will be using to create the app will include the following, Python, Data Visualization, Webscraping, HTML, Mongo DB and CSS.
 
-Our deliverables will be an app that can be accessed through computers, touch pads and cell phones. The dashboard will be limited to your requirements and needs. We want our customers to have access to what they need.
+Our deliverable will be an app that can be accessed through computers, touch pads and cell phones. The dashboard will be limited to your requirements and needs. We want our customers to have access to what they need.
 
 We will measure our success based on user logins and daily updates. We want the end user to get a notification and feel the trust they want to have with their crew members, with a quick thank you for the update.
