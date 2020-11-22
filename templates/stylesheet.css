@@ -1,0 +1,6 @@
+select.form-control {
+    &:not([size]):not([multiple]) {
+      //simulate line-height: 1.25  for selects
+      box-sizing: content-box;
+      height: 1.25rem;  
+    }
