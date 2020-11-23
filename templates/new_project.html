@@ -11,19 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet"> 
         <link rel = "stylesheet" type="text/css" href="https://bootstrap.themes.guide/greyson/theme.css">
         <link rel = "stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel = "stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel = "stylesheet" type="text/css" href="css/datepicker.css">
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-        <style type="text/css">
-        #datepicker{
-            width: 180px; margin: 0 20px 20px 20px;
-        }
-        #datepicker > span:hover{
-            cursor: pointer;
-
-        }
-        </style>
+       
         <link rel = "stylesheet" type="text/css" href="stylesheet.css">
 
          
@@ -167,39 +155,14 @@
                         <input class="form-control" type="text" placeholder="Automatically Calculated">
                     </div>
             </div> 
-            <!-- Date Picker -->
-            <!-- <div class ="form-group row">
+            <!-- Date Picker -->            
+            <div class="form-group row">
                 <label class="col-lg-2 col-form-label form-control-label text-muted">Start Date:</label>
-                <div class="col-lg-10">
-                    <div class="input-group input-append date" id="dateRangePicker">
-                        <input type="date" class="form-control" name="date" />
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    <div id="datepicker" class="col-lg-10" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input class="form-control" type="date" name="" placeholder="mm/dd/yyy">
+                        <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> -->
                     </div>
-                </div>
             </div>
-            
-            <script>
-                $(document).ready(function() {
-                    $('#dateRangePicker')
-                        .datepicker({
-                            format: 'mm/dd/yyyy',
-                            startDate: '01/01/2019',
-                            endDate: '12/31/2029',
-                        });
-                    
-            });
-            </script> -->
-            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                <input type="date" name="">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            </div>
-            <script type="text/javascript">
-            $(function(){
-                $("#datepicker").datepicker({
-                    autoclose: true,
-                    todayHighlight:true,                    
-                }).datepicker("update", new Date());
-            })
                 </script>
             <!-- Cancel and Submit Buttons -->
             <div class="form-group row">
