@@ -1,0 +1,122 @@
+{
+    "0": {
+        "name": "Wallace-Wilson",
+        "street": "1548 Gomez Parkway",
+        "street2": "Apt. 228",
+        "city": "New Ronald",
+        "state": "NM",
+        "zip": "44705",
+        "revenue": 22915.7,
+        "est_labor_expense": 6406.68,
+        "est_labor_hours": 1976,
+        "act_start_date": "1986-01-27"
+    },
+    "1": {
+        "name": "Brown-Moses",
+        "street": "9785 Baxter Falls",
+        "street2": "Suite 421",
+        "city": "Roberthaven",
+        "state": "WI",
+        "zip": "97497",
+        "revenue": 33499.79,
+        "est_labor_expense": 5553.47,
+        "est_labor_hours": 2350,
+        "act_start_date": "1996-05-30"
+    },
+    "2": {
+        "name": "Nunez, Cochran and Wilson",
+        "street": "88105 James Plaza Suite 935",
+        "street2": "Suite 409",
+        "city": "Martinmouth",
+        "state": "NH",
+        "zip": "16247",
+        "revenue": 44724.43,
+        "est_labor_expense": 9332.87,
+        "est_labor_hours": 2234,
+        "act_start_date": "1977-03-06"
+    },
+    "3": {
+        "name": "Franklin, Lopez and Nunez",
+        "street": "839 Tammie Parks Suite 524",
+        "street2": "Suite 218",
+        "city": "Hinesland",
+        "state": "NV",
+        "zip": "42826",
+        "revenue": 42141.16,
+        "est_labor_expense": 5110.5,
+        "est_labor_hours": 2866,
+        "act_start_date": "1991-04-30"
+    },
+    "4": {
+        "name": "Christian Group",
+        "street": "006 David Road Apt. 607",
+        "street2": "Apt. 768",
+        "city": "East Paige",
+        "state": "RI",
+        "zip": "91377",
+        "revenue": 37985.47,
+        "est_labor_expense": 9036.0,
+        "est_labor_hours": 953,
+        "act_start_date": "1975-11-30"
+    },
+    "5": {
+        "name": "Becker, Chavez and Freeman",
+        "street": "99221 Denise Fort",
+        "street2": "Suite 826",
+        "city": "Younghaven",
+        "state": "NJ",
+        "zip": "53204",
+        "revenue": 35644.82,
+        "est_labor_expense": 7317.13,
+        "est_labor_hours": 1119,
+        "act_start_date": "1986-11-22"
+    },
+    "6": {
+        "name": "Sweeney PLC",
+        "street": "93585 Walter Tunnel Suite 744",
+        "street2": "Suite 890",
+        "city": "West Marie",
+        "state": "NE",
+        "zip": "56013",
+        "revenue": 43319.1,
+        "est_labor_expense": 8195.0,
+        "est_labor_hours": 2587,
+        "act_start_date": "2005-09-22"
+    },
+    "7": {
+        "name": "Lopez, Sanchez and Harper",
+        "street": "4792 Shannon Gardens",
+        "street2": "Apt. 259",
+        "city": "South Jefferybury",
+        "state": "IA",
+        "zip": "84270",
+        "revenue": 39987.17,
+        "est_labor_expense": 8195.77,
+        "est_labor_hours": 2635,
+        "act_start_date": "1986-09-29"
+    },
+    "8": {
+        "name": "Walker, Hardin and Collier",
+        "street": "79343 Susan Extension Suite 333",
+        "street2": "Suite 998",
+        "city": "Stephanieville",
+        "state": "CA",
+        "zip": "57713",
+        "revenue": 36819.11,
+        "est_labor_expense": 7008.79,
+        "est_labor_hours": 1684,
+        "act_start_date": "2012-01-03"
+    },
+    "9": {
+        "name": "Miller PLC",
+        "street": "31838 Ruiz Parks Apt. 650",
+        "street2": "Apt. 457",
+        "city": "South Todd",
+        "state": "WA",
+        "zip": "74311",
+        "revenue": 38690.18,
+        "est_labor_expense": 8646.56,
+        "est_labor_hours": 1229,
+        "act_start_date": "2000-01-19"
+    }
+}
