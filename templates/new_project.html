@@ -14,11 +14,11 @@
        
         <!-- Datepicker links and dependencies -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  -->
-        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>        
         <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
        
+        <link rel = "stylesheet" type="text/css" href="stylesheet.css">
 
          
 
@@ -34,12 +34,12 @@
             </div>
         </div>
     
-<!-- Begin Form: This is required field -->
+    <!-- Begin Form --> 
         <form action="" style="width: 500px; margin: auto">
-            <!-- Project Name -->
+            <!-- Project Name: This is required field -->
             <div class="form-group row was-validated">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Project Name:</label>
-                <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Project Name:</label>
+                <div class="col-lg-9">
                     <input class="form-control" type="text" required="" id="un" name="un">
                     <div class="invalid-feedback">
                       Project Name is required.
@@ -48,22 +48,22 @@
             </div>
             <!-- Street 1 -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Street 1:</label>
-                    <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Street 1:</label>
+                    <div class="col-lg-9">
                         <input class="form-control" type="text" placeholder="Street 1">
                     </div>
             </div>
             <!-- Street 2 -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Street 2:</label>
-                    <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Street 2:</label>
+                    <div class="col-lg-9">
                         <input class="form-control" type="text" placeholder="Street 2">
                     </div>
             </div> 
             <!-- City and State -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">City/State:</label>
-                    <div class="col-lg-6">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">City/State:</label>
+                    <div class="col-lg-5">
                         <input class="form-control" type="text" placeholder="City">
                     </div>
                     <div class="col-lg-4">
@@ -126,8 +126,8 @@
                 </div>
             <!-- Revenue: This is a required field -->
             <div class="form-group row was-validated">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Revenue:</label>
-                <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Revenue:</label>
+                <div class="col-lg-9">
                     <input class="form-control" type="text" placeholder= "$0.00" required="" id="un" name="un">
                     <div class="invalid-feedback">
                         Revenue is Required.
@@ -136,8 +136,8 @@
             </div>  
             <!-- Estimated Labor Hours: This is a required field -->
             <div class="form-group row was-validated">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Estimated Labor Hours:</label>
-                <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Estimated Labor Hours:</label>
+                <div class="col-lg-9">
                     <input class="form-control" type="text" placeholder= "0" required="" id="un" name="un">
                     <div class="invalid-feedback">
                         Estimated Labor Hours is Required.
@@ -146,8 +146,8 @@
             </div>  
             <!-- Labor Rate per Hour: This is a required field -->
             <div class="form-group row was-validated">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Estimated Labor Rate/Hour:</label>
-                <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Estimated Labor Rate/Hour:</label>
+                <div class="col-lg-9">
                     <input class="form-control" type="text" placeholder= "$0.00/hr" required="" id="un" name="un">
                     <div class="invalid-feedback">
                         Estimated Labor Rate per Hour is Required.
@@ -156,16 +156,31 @@
             </div> 
             <!-- Labor Expense -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Labor Expense:</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" type="text" placeholder="Automatically Calculated">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Labor Expense:</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" placeholder="Labor Hours x Labor Rate">
+                    </div>
+            </div>
+            <!-- Gross Profit -->
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Gross Profit:</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" placeholder="Revenue - Labor Expense">
                     </div>
             </div> 
+            <!-- Gross Margin -->
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Gross Margin:</label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" placeholder="(Gross Profit/Revenue) x 100)">
+                    </div>
+            </div>  
             <!-- Date Picker -->            
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label text-muted">Start Date:</label>
-                    <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Start Date:</label>
+                    <div class="col-lg-9">
                         <input id="datepicker" class="form-control"/>
+                        <!-- <style>.input-group-addon{width: 14%;}</style> -->
                     </div>
             </div> 
              
