@@ -55,16 +55,10 @@
         </div> 
     </div>    
     <div class="container table_container">
-        <div class="col-lg-5 px-md-5">
-            <label class="form-control-label text">Status:</label>
-            <select name="Status" id="DB-Status" class="form-control-lg" style="margin-bottom: 20px">
-                <option value="All">selected>All</option>
-                <option value="Bid">Bid</option>
-                <option value="Current">Current</option>
-                <option value="Accounting">Accounting</option>	
-                <option value="Closed">Closed</option>
-                </select>
-        </div>  
+        <form class="form-inline mr-auto" style="margin: 0px 0px 20px 0px">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button>
+          </form>
         <table id= "dashboard" class="table table-striped">
             <thead>
               <tr>
