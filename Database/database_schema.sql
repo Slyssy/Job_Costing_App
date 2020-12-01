@@ -43,3 +43,7 @@ CREATE TABLE progress_reports(
     log_date DATE, 
     percent_complete INTEGER
 );
+
+-- add column to project_details
+ALTER TABLE project_details
+ADD COLUMN est_labor_rate FLOAT;
