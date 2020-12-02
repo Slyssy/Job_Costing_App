@@ -8,8 +8,9 @@ CREATE TABLE project_details(
     state VARCHAR(2),
     zip VARCHAR(5),
     revenue float,
+    est_labor_rate FLOAT,
+    est_labor_hours FLOAT,
     est_labor_expense FLOAT,
-    est_labor_hours INTEGER,
     act_start_date DATE, 
     act_comp_date DATE
 );
@@ -41,9 +42,5 @@ CREATE TABLE progress_reports(
     project_id INTEGER REFERENCES project_details(project_id),
     user_id INTEGER REFERENCES users(user_id),
     log_date DATE, 
-    percent_complete INTEGER
+    percent_complete FLOAT
 );
-
--- add column to project_details
-ALTER TABLE project_details
-ADD COLUMN est_labor_rate FLOAT;
