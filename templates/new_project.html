@@ -61,15 +61,18 @@
                     </div>
             </div> 
             <!-- City and State -->
-            <div class="form-group row">
+            <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">City/State:</label>
                     <div class="col-lg-5">
-                        <input class="form-control" type="text" placeholder="City">
+                        <input class="form-control" type="text" required="" id="un" name="un"placeholder="City">
+                            <div class="invalid-feedback">
+                                City is required.
+                            </div>
                     </div>
                     <div class="col-lg-4">
-                        <select name="State" id="State" class="form-control-lg">
+                        <select required name="State" id="State" class="form-control-lg">
                             <!-- <option>State</option> -->
-                            <option value="ST">ST</option>
+                            <option value=""></option>
                             <option value="AL">AL</option>
                             <option value="AK">AK</option>
                             <option value="AR">AR</option>	
@@ -122,9 +125,12 @@
                             <option value="WV">WV</option>
                             <option value="WY">WY</option>
                         </select>
+                        <div class="invalid-feedback">
+                            State is required.
+                        </div>
                     </div>
                 </div>
-                <!-- Street 1 -->
+                <!-- Zip Code -->
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Zip Code:</label>
                     <div class="col-lg-9">
@@ -198,8 +204,8 @@
                
             <!-- Cancel and Submit Buttons -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label"></label>
-                    <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-9">
                         <input type="reset" class="btn btn-outline-secondary mr-2" value="Cancel">
                         <input type="button" class="btn btn-primary mr-2" value="Submit">
                     </div>
