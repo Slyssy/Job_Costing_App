@@ -60,16 +60,25 @@
 <!-- Begin Form -->
         <form action="" style="width: 500px; margin: auto">
             <!-- Employee Name -->
-                        <div class="form-group row was-validated">
-             <label class="col-lg-2 col-form-label form-control-label text-muted">Employee Name:</label>
+            <div class="col-lg-4">
+                <select name="State" required="" id="State" class="form-control-lg">
+                    <!-- <option>State</option> -->
+                    <option value=""></option>
+                </select>
+
+
+
+            <div class="form-group row was-validated">
+             <label class="col-lg-3 col-form-label form-control-label text-muted">Employee Name:</label>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown button
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
+
+                  <!-- <a class="dropdown-item" href="#">Action</a>
                   <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Something else here</a> -->
                 </div>
               </div>
             </div>
@@ -81,11 +90,14 @@
                <div class="dropdown">
                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      Dropdown button
+                     <option value= "">Project Name</option>
                    </button>
                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item" href="#">Action</a>
+                    <select name="Status" id="Status" class="form-control-lg">
+                    <option value= "">Project Name</option>
+                     <!-- <a class="dropdown-item" href="#">Action</a>
                      <a class="dropdown-item" href="#">Another action</a>
-                     <a class="dropdown-item" href="#">Something else here</a>
+                     <a class="dropdown-item" href="#">Something else here</a> -->
                    </div>
                  </div>
                </div>

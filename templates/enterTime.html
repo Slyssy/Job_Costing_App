@@ -39,7 +39,10 @@
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Employee Name:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" required="" id="un" name="un" placeholder="Ex: John Smith">
+                    <select name="Employee Name" required="" id="name" class="form-control-lg">
+                        <!-- <option>State</option> -->
+                        <option value=""></option>
+                    </select>
                     <div class="invalid-feedback">
                       Required.
                     </div>
@@ -51,11 +54,20 @@
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Select Project:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" required="" id="un" name="un" placeholder="Select Project">
+                    <select name="Project Name" required="" id="proName" class="form-control-lg">
+                        <!-- <option>State</option> -->
+                        <option value=""></option>
+                    </select>
                     <div class="invalid-feedback">
                       Required.
                     </div>
                 </div>
+                <!-- <div class="col-lg-9">
+                    <input class="form-control" type="text" required="" id="un" name="un" placeholder="Select Project">
+                    <div class="invalid-feedback">
+                      Required.
+                    </div>
+                </div> -->
             </div>
             
 
@@ -80,8 +92,8 @@
                                     
         <!-- Cancel and Submit Buttons -->
             <div class="form-group row">
-                <label class="col-lg-2 col-form-label form-control-label"></label>
-                    <div class="col-lg-10">
+                <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-9">
                         <input type="reset" class="btn btn-outline-secondary mr-2" value="Cancel">
                         <input type="button" class="btn btn-primary mr-2" value="Add Time">
                     </div>
