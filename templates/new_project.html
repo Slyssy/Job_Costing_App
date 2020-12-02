@@ -30,7 +30,7 @@
             <div class="card-body d-flex flex-column align-items-start">
                 <h4 class="card-title">Enter New Project</h4>
                 <p class="card-text">Fill out the required fields to enter a new project.</p>
-                <a href="https://getbootstrap.com/docs/4.1/components/scrollspy/" class="btn btn-primary border-white mt-auto">Return to Dashboard</a>
+                <a href="index.html" class="btn btn-primary border-white mt-auto">Return to Dashboard</a>
             </div>
         </div>
     
@@ -61,15 +61,18 @@
                     </div>
             </div> 
             <!-- City and State -->
-            <div class="form-group row">
+            <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">City/State:</label>
                     <div class="col-lg-5">
-                        <input class="form-control" type="text" placeholder="City">
+                        <input class="form-control" type="text" required="" placeholder="City">
                     </div>
+                    <div class="invalid-feedback">
+                        City is required.
+                      </div>
                     <div class="col-lg-4">
-                        <select name="State" id="State" class="form-control-lg">
+                        <select name="State" required="" id="State" class="form-control-lg">
                             <!-- <option>State</option> -->
-                            <option value="ST">ST</option>
+                            <option value=""></option>
                             <option value="AL">AL</option>
                             <option value="AK">AK</option>
                             <option value="AR">AR</option>	
@@ -124,7 +127,7 @@
                         </select>
                     </div>
                 </div>
-                <!-- Street 1 -->
+                <!-- Zip Code -->
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Zip Code:</label>
                     <div class="col-lg-9">
@@ -135,7 +138,7 @@
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Revenue:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" placeholder= "$0.00" required="" id="un" name="un">
+                    <input class="form-control" type="text" placeholder= "$0.00" required=""  name="un">
                     <div class="invalid-feedback">
                         Revenue is Required.
                     </div>
@@ -168,20 +171,7 @@
                         <input class="form-control" type="text" placeholder="Labor Hours x Labor Rate">
                     </div>
             </div> 
-            <!-- Gross Profit -->
-            <!-- <div class="form-group row">
-                <label class="col-lg-3 col-form-label form-control-label text-muted">Gross Profit:</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Revenue - Labor Expense">
-                    </div>
-            </div>  -->
-            <!-- Gross Margin -->
-            <!-- <div class="form-group row">
-                <label class="col-lg-3 col-form-label form-control-label text-muted">Gross Margin:</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="(Gross Profit/Revenue) x 100)">
-                    </div>
-            </div>   -->
+            
             <!-- Date Picker -->            
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Start Date:</label>
