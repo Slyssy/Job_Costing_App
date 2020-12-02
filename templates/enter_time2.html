@@ -17,8 +17,8 @@
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-         
-         <!-- Bootstrap Datepicker CSS and JS libraries -->
+          
+         Bootstrap Datepicker CSS and JS libraries
          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/bootstrap-datepicker.min.css">
          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/bootstrap-datepicker3.min.css">
          <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
@@ -27,17 +27,22 @@
         <link rel="stylesheet" href="datepicker/bootstrap-datepicker/bootstrap-datepicker.min.css" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="../bootstrap-datepicker.min.css" />
+        <link rel="stylesheet" href="../bootstrap-datepicker.min.css" /> 
         
-        <!-- Date time ? -->
+        Date time ?
         <link rel="stylesheet" href="datepicker/bootstrap-datepicker/demo/css/bootstrap.min.css" />
         <link rel="stylesheet" href="datepicker/bootstrap-datepicker/bootstrap-datepicker.min.css" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="../bootstrap-datepicker.min.css" />
 
-        <!--another try -->
-        <link rel="stylesheet" href="bootstrap.bundle.min.js / bootstrap.bundle.js"
+        another try
+        <link rel="stylesheet" href="bootstrap.bundle.min.js / bootstrap.bundle.js">
+    
+
+
+
+
 
 </head>
 <body>
@@ -85,45 +90,69 @@
                  </div>
                </div>
 
-             <!-- Start and End Date/time -->
-             <div class="container">
-       
-                <div class="col-md-3">
-                    <h3>Start Date and Time</h3>
-                    <div class='input-group date' id='dp0'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+               <!-- Start Datetime Picker -->
+            <div class="form-group row" style="margin: 40px 0px 40px 0px">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">Start Time:</label>
+                    <div class="col-lg-9">
+                        <input id="datetimepicker-start" type = "text" class="form-control"/>
                     </div>
-                </div>
             </div>
-
-                <div class="container">
-                    <div class="col-md-3">
-                        <h3>Start Date and Time</h3>
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+<!-- End Datetime Picker -->
+            <div class="form-group row" style="margin: 40px 0px 40px 0px">
+                <label class="col-lg-3 col-form-label form-control-label text-muted">End Time:</label>
+                    <div class="col-lg-9">
+                        <input id="datetimepicker-end" type = "text" class="form-control"/>
+                    </div>
             </div>
+             
+            <script>
+                $('#datetimepicker-start').datetimepicker({
+                });
+            </script>
+            <script>
+                $('#datetimepicker-end').datetimepicker({
+                });
 
 
-                <div class="container">
+            //  <!-- Start and End Date/time -->
+        //      <div class="container">
        
-                    <div class="col-md-3">
-                        <h3>End Date and Time</h3>
-                        <div class='input-group date' id='dp0'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>  
-                </div>             
-        <hr>
+        //         <div class="col-md-3">
+        //             <h3>Start Date and Time</h3>
+        //             <div class='input-group date' id='dp0'>
+        //                 <input type='text' class="form-control" />
+        //                 <span class="input-group-addon">
+        //                     <span class="glyphicon glyphicon-calendar"></span>
+        //                 </span>
+        //             </div>
+        //         </div>
+        //     </div>
+
+        //         <div class="container">
+        //             <div class="col-md-3">
+        //                 <h3>Start Date and Time</h3>
+        //         <div class='input-group date' id='datetimepicker1'>
+        //             <input type='text' class="form-control" />
+        //             <span class="input-group-addon">
+        //                 <span class="glyphicon glyphicon-calendar"></span>
+        //             </span>
+        //         </div>
+        //     </div>
+
+
+        //         <div class="container">
+       
+        //             <div class="col-md-3">
+        //                 <h3>End Date and Time</h3>
+        //                 <div class='input-group date' id='dp0'>
+        //                     <input type='text' class="form-control" />
+        //                     <span class="input-group-addon">
+        //                         <span class="glyphicon glyphicon-calendar"></span>
+        //                     </span>
+        //                 </div>
+        //             </div>  
+        //         </div>             
+        // <hr>
         
                          
                                     
