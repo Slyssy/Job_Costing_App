@@ -117,7 +117,7 @@ for i in range(0 , 10):
 
 
 # add lists to pandas dataframe
-df = pd.DataFrame({"project_id": project_id, "user_id": user_id, "start_time": dates, "finish_time": dates})
+df = pd.DataFrame({"user_id": user_id, "project_id": project_id, "start_time": dates, "finish_time": dates})
 
 # convert to pandas datetime with just the date
 df["start_time"] = pd.to_datetime(df["start_time"]).dt.date.astype(str)
