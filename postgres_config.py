@@ -1,5 +1,0 @@
-pg_username='postgres'
-pg_password='PsHyPnfnFOIe4ex0'
-pg_ipaddress='104.154.193.253'
-pg_port='5432'
-pg_dbname='projects_dev'
