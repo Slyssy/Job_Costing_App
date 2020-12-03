@@ -5,12 +5,12 @@ import time
 from datetime import timedelta, datetime
 import random
 
-# create list of random user ids
+# create list of random user ids 
 user_id = list(np.random.randint(low=1, high=5, size=147))
 
 # print(user_id)
 
-# create list of project_ids
+# create list of project_ids depending on the number of project days @ 8 hours per work day
 # project 1
 project_id = list(np.random.randint(low=1, high=2, size=29))
 
@@ -46,7 +46,7 @@ project_id = project_id + list(np.random.randint(low=11, high=12, size=10))
 
 # print(len(project_id))
 
-# create a list of random dates for each project
+# create function to create random dates between two dates for each project
 def randomDate(start, end):
     frmt = "%Y-%m-%d 07:15"
 
@@ -57,91 +57,78 @@ def randomDate(start, end):
     dt = datetime.fromtimestamp(time.mktime(time.localtime(ptime)))
     return dt.isoformat()
 
-start_times = []
+# append random dates to a list for each projects number of project days within the project start and end date
+
+dates = []
 
 # project 1
 for i in range(0 , 29):
-    start_times.append(randomDate("2020-01-08 07:15", "2020-02-06 07:15"))
+    dates.append(randomDate("2020-01-08 07:15", "2020-02-06 07:15"))
 
 # project 2
-proj_2 = []
 
 for i in range(0 , 4):
-    proj_2.append(randomDate("2020-02-15 07:15", "2020-02-20 07:15"))
-
-start_times = start_times + proj_2
+    dates.append(randomDate("2020-02-15 07:15", "2020-02-20 07:15"))
 
 # project 3
-proj_3 = []
 
 for i in range(0 , 8):
-    start_times.append(randomDate("2020-03-05 07:15", "2020-03-13 07:15"))
-
-start_times = start_times + proj_3
+    dates.append(randomDate("2020-03-05 07:15", "2020-03-13 07:15"))
 
 # project 4
-proj_4 = []
 
 for i in range(0 , 13):
-    start_times.append(randomDate("2020-04-17 07:15", "2020-05-01 07:15"))
-
-start_times = start_times + proj_4
+    dates.append(randomDate("2020-04-17 07:15", "2020-05-01 07:15"))
 
 # project 5
-proj_5 = []
 
 for i in range(0 , 3):
-    start_times.append(randomDate("2020-05-09 07:15", "2020-05-13 07:15"))
-
-start_times = start_times + proj_5
+    dates.append(randomDate("2020-05-09 07:15", "2020-05-13 07:15"))
 
 # project 6
-proj_6 = []
 
 for i in range(0 , 15):
-    start_times.append(randomDate("2020-06-23 07:15", "2020-07-09 07:15"))
-
-start_times = start_times + proj_6
+    dates.append(randomDate("2020-06-23 07:15", "2020-07-09 07:15"))
 
 # project 7
-proj_7 = []
 
 for i in range(0 , 19):
-    start_times.append(randomDate("2020-07-10 07:15", "2020-07-31 07:15"))
-
-start_times = start_times + proj_7
+    dates.append(randomDate("2020-07-10 07:15", "2020-07-31 07:15"))
 
 # project 8
-proj_8 = []
 
 for i in range(0 , 3):
-    start_times.append(randomDate("2020-08-01 07:15", "2020-08-04 07:15"))
-
-start_times = start_times + proj_8
+    dates.append(randomDate("2020-08-01 07:15", "2020-08-04 07:15"))
 
 # project 9
-proj_9 = []
 
 for i in range(0 , 7):
-    start_times.append(randomDate("2020-09-13 07:15", "2020-09-22 07:15"))
-
-start_times = start_times + proj_9
+    dates.append(randomDate("2020-09-13 07:15", "2020-09-22 07:15"))
 
 # project 10
-proj_10 = []
 
 for i in range(0 , 36):
-    start_times.append(randomDate("2020-10-11 07:15", "2020-11-17 07:15"))
-
-start_times = start_times + proj_10
+    dates.append(randomDate("2020-10-11 07:15", "2020-11-17 07:15"))
 
 # project 11
-proj_11 = []
 
 for i in range(0 , 10):
-    start_times.append(randomDate("2020-11-06 07:15", "2020-11-17 07:15"))
+    dates.append(randomDate("2020-11-06 07:15", "2020-11-17 07:15"))
 
-start_times = start_times + proj_11
 
-print(start_times)
-print(len(start_times))
+# add lists to pandas dataframe
+df = pd.DataFrame({"project_id": project_id, "user_id": user_id, "start_time": dates, "finish_time": dates})
+
+# convert to pandas datetime with just the date
+df["start_time"] = pd.to_datetime(df["start_time"]).dt.date.astype(str)
+df["finish_time"] = pd.to_datetime(df["finish_time"]).dt.date.astype(str)
+
+# add start and finish time to each date that will equate to 8 hours of work
+df["start_time"] += " 07:15:00"
+df["finish_time"] += " 15:15:00"
+
+# print(df)
+
+# print(df.info())
+
+df.to_csv("for_database/timesheets.csv", index=False)
