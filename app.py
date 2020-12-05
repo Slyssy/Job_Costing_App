@@ -1,5 +1,5 @@
 # Setup dependencies
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 import psycopg2
 import datetime
 from datetime import date
@@ -28,9 +28,42 @@ if conn:
 app = Flask(__name__)
 
 
+# Route for Index page / Dashboard -- fetches data from db and displays on dashboard
+@app.route("/", methods=['GET'])
+def index():
+    if request.method == 'GET':
+        cur = conn.cursor()
+        # Fetch data from project_details table
+        cur.execute('SELECT * FROM project_details');
+        project_details_data = cur.fetchall()
+        print('------------------------------------------')
+        print('Data fetched from Project_Details table')
+        print('------------------------------------------')
+        print(project_details_data)
+        print('------------------------------------------')
+
+        #  Create a list of dictionaries with selected project_details table data, and output as a JSON
+        project_list = []
+        for db_row in project_details_data:
+            project_dict = {}
+            project_dict['name'] = db_row[1]
+            project_dict['revenue'] = str(db_row[7])
+            project_dict['est_labor_hours'] = str(db_row[9])
+            project_dict['est_labor_expense'] = str(db_row[10])
+            project_dict['act_start_date'] = str(db_row[11])
+            project_list.append(project_dict)
+        return jsonify(project_list)
+        return render_template('index.html')
+    else:
+        print('---------------------------------------')
+        db_read_error = 'Oops - could not read from database!'
+        print('---------------------------------------')
+        return render_template('error.html', error_type=db_read_error)
+
+      
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
 @app.route('/new_project', methods=['GET', 'POST'])
-def data_from_html_to_db():
+def projdata_html_to_db():
     if request.method == 'POST':
         print('*****************')
         print('Posting form...')
@@ -86,10 +119,10 @@ def data_from_html_to_db():
         print('*****************')
         return render_template('new_project.html')
 
-      
+
 # Route for Enter New User page, saves inputs to db, then redirects to Project Details page
 @app.route('/new_user', methods=['GET', 'POST'])
-def data_from_html_to_db():
+def userdata_html_to_db():
     if request.method == 'POST':
         print('*****************')
         print('Posting form...')
