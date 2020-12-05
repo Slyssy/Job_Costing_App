@@ -66,7 +66,7 @@
                 <th scope="col">Actual labor Hours</th>
                 <th scope="col">Budget Labor Expense</th>
                 <th scope="col">Actual Labor Expense</th>
-                <th scope="col">% Complete</th>
+                <!-- <th scope="col">% Complete</th> -->
               </tr>
             </thead>
             <tbody>
@@ -77,7 +77,7 @@
                 <td>{{Actual labor Hours}}</td>
                 <td>{{Budget Labor Expense}}</td>
                 <td>{{Actual Labor Expense}}</td>
-                <td>{{% Complete}}</td>
+                <!-- <td>{{% Complete}}</td> -->
               </tr>          
             </tbody>
           </table>  
@@ -86,15 +86,15 @@
     <div class="container project_updates_container">
         <div class="card bg-primary text-white h-100">
             <div class="card-body d-flex flex-column align-items-start">
-                <h4 class="card-title">Project Updates</h4>
-                <p class="card-text">Quickly update project milestone dates, percentage completion and project status.</p>                
+                <h4 class="card-title">Project Milestone Dates</h4>
+                <p class="card-text">When project is complete, simply use the date picker to select the End Date.</p>                
                 </div>           
         </div>
       </div>
     <div class="container project_updates_container">
         <div class="card border-primary h-100">
             <div class="row" style="padding: 15px 0">
-                <div class="col-lg-3 px-md-5">
+                <!-- <div class="col-lg-3 px-md-5">
                     <label class="form-control-label text-muted">Status:</label>
                     <select name="Status" id="Status" class="form-control-lg">
                         <option value="None">None</option>
@@ -103,9 +103,9 @@
                         <option value="Accounting">Accounting</option>	
                         <option value="Closed">Closed</option>
                         </select>
-                </div> 
+                </div>  -->
                 
-                <div class="col-lg-3 px-md-5">
+                <!-- <div class="col-lg-3 px-md-5">
                     <label class="form-control-label text-muted">% Complete:</label>                    
                     <select name="Status" id="POC" class="form-control-lg">
                         <option value="0">0%</option>
@@ -130,12 +130,12 @@
                         <option value="95">95%</option>
                         <option value="100">100%</option>
                         </select>
-                </div>
-                <div class="col-lg-3 px-md-5">
-                    <label class="form-control-label text-muted">Start Date:</label>
-                    <input id="start_datepicker" type = "text" />
-                </div>  
-                <div class="col-lg-3  px-md-5">
+                </div> -->
+                <div class="col-lg-6 px-md-5">
+                  <label class="form-control-label text-muted">Start Date:</label>
+                    <input class="form-control" type="text" placeholder="">
+                </div> 
+                <div class="col-lg-6  px-md-5">
                     <label class="form-control-label text-muted">End Date:</label>
                     <input id="end_datepicker" type = "text" />
                 </div>               
@@ -231,7 +231,7 @@
                     <td>{{Start Date/Time From Timesheet}}</td>
                     <td>{{End Date/Time From Timesheet}}</td>
                     <td>{{End datetime - Start Datetime}}</td>
-                    <td><a class="link" href="time_sheets.html">Edit</td>
+                    <!-- <td><a class="link" href="time_sheets.html">Edit</td> -->
 
                   </tr>
             </tbody>
