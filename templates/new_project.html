@@ -35,12 +35,12 @@
         </div>
     
     <!-- Begin Form --> 
-        <form action="" style="width: 500px; margin: auto">
-            <!-- Project Name: This is required field -->
+        <form action="" method="POST" style="width: 500px; margin: auto">
+            <!-- Project Name: This is a required field -->
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Project Name:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" required="" id="un" name="un">
+                    <input class="form-control" type="text" required="" id="un" name="project_name">
                     <div class="invalid-feedback">
                       Project Name is required.
                     </div>
@@ -50,32 +50,29 @@
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Street 1:</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Street 1">
+                        <input class="form-control" type="text" name="street" placeholder="Street 1">
                     </div>
             </div>
             <!-- Street 2 -->
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Street 2:</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Street 2">
+                        <input class="form-control" type="text" name="street2" placeholder="Street 2">
                     </div>
             </div> 
-            <!-- City and State -->
+            <!-- City and State: These are required fields -->
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">City/State:</label>
                     <div class="col-lg-5">
-                        <input class="form-control" type="text" required="" id="un" name="un"placeholder="City">
-                            <div class="invalid-feedback">
-                                City is required.
-                            </div>
+                        <input class="form-control" type="text" name="city" required="" placeholder="City">
                     </div>
                     <div class="invalid-feedback">
                         City is required.
-                      </div>
+                    </div>
                     <div class="col-lg-4">
-                        <select name="State" required="" id="State" class="form-control-lg">
+                        <select name="state" required="" id="state" class="form-control-lg">
                             <!-- <option>State</option> -->
-                            <option value=""></option>
+                            <option value="">Select a State</option>
                             <option value="AL">AL</option>
                             <option value="AK">AK</option>
                             <option value="AR">AR</option>	
@@ -132,19 +129,22 @@
                             State is required.
                         </div>
                     </div>
+                    <div class="invalid-feedback">
+                        State is required.
+                    </div>
                 </div>
                 <!-- Zip Code -->
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Zip Code:</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="#####">
+                        <input class="form-control" type="text" name="zipcode" placeholder="#####">
                     </div>
             </div>
             <!-- Revenue: This is a required field -->
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Revenue:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" placeholder= "$0.00" required=""  name="un">
+                    <input class="form-control" type="text" placeholder= "$0.00" required=""  name="revenue">
                     <div class="invalid-feedback">
                         Revenue is Required.
                     </div>
@@ -154,7 +154,7 @@
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Budget Labor Hours:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" placeholder= "0" required="" id="un" name="un">
+                    <input class="form-control" type="text" placeholder= "0" required="" id="un" name="est_labor_hours">
                     <div class="invalid-feedback">
                         Estimated Labor Hours is Required.
                     </div>
@@ -164,7 +164,7 @@
             <div class="form-group row was-validated">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Budget Labor Rate/Hour:</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" placeholder= "$0.00/hr" required="" id="un" name="un">
+                    <input class="form-control" type="text" placeholder= "$0.00/hr" required="" id="un" name="est_labor_rate">
                     <div class="invalid-feedback">
                         Estimated Labor Rate per Hour is Required.
                     </div>
@@ -174,7 +174,7 @@
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label text-muted">Budget Labor Expense:</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" placeholder="Labor Hours x Labor Rate">
+                        <input class="form-control" type="text" name="est_labor_expense" placeholder="Labor Hours x Labor Rate">
                     </div>
             </div> 
             
@@ -197,7 +197,7 @@
                 <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
                         <input type="reset" class="btn btn-outline-secondary mr-2" value="Cancel">
-                        <input type="button" class="btn btn-primary mr-2" value="Submit">
+                        <input type="submit" value="Submit">
                     </div>
             </div>
             

@@ -86,7 +86,7 @@ def data_from_html_to_db():
         print('*****************')
         return render_template('new_project.html')
 
-
+      
 # Route for Enter New User page, saves inputs to db, then redirects to Project Details page
 @app.route('/new_user', methods=['GET', 'POST'])
 def data_from_html_to_db():
@@ -107,7 +107,7 @@ def data_from_html_to_db():
         full_values_string += ',' + "'" + phone + "'" + ")"
         # Print data list for database entry
         print('-------------------------------------------------------------------')
-        print('Data list prepared for entry to Project_Details table in database')
+        print('Data list prepared for entry to Users table in database')
         print('-------------------------------------------------------------------')
         print(full_values_string)
         print('-------------------------------------------------------------------')
