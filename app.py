@@ -1,5 +1,5 @@
 # Setup dependencies
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 import psycopg2
 import datetime
 from datetime import date
@@ -27,9 +27,43 @@ if conn:
 # Create Flask app instance
 app = Flask(__name__)
 
-# Route for Enter New Project form -- saves inputs to db, then redirects to Project Details page
+
+# Route for Index page / Dashboard -- fetches data from db and displays on dashboard
+@app.route("/", methods=['GET'])
+def index():
+    if request.method == 'GET':
+        cur = conn.cursor()
+        # Fetch data from project_details table
+        cur.execute('SELECT * FROM project_details');
+        project_details_data = cur.fetchall()
+        print('------------------------------------------')
+        print('Data fetched from Project_Details table')
+        print('------------------------------------------')
+        print(project_details_data)
+        print('------------------------------------------')
+
+        #  Create a list of dictionaries with selected project_details table data, and output as a JSON
+        project_list = []
+        for db_row in project_details_data:
+            project_dict = {}
+            project_dict['name'] = db_row[1]
+            project_dict['revenue'] = str(db_row[7])
+            project_dict['est_labor_hours'] = str(db_row[9])
+            project_dict['est_labor_expense'] = str(db_row[10])
+            project_dict['act_start_date'] = str(db_row[11])
+            project_list.append(project_dict)
+        return jsonify(project_list)
+        return render_template('index.html')
+    else:
+        print('---------------------------------------')
+        db_read_error = 'Oops - could not read from database!'
+        print('---------------------------------------')
+        return render_template('error.html', error_type=db_read_error)
+
+
+# Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
 @app.route('/new_project', methods=['GET', 'POST'])
-def data_from_html_to_db():
+def projdata_html_to_db():
     if request.method == 'POST':
         print('*****************')
         print('Posting form...')
@@ -38,20 +72,14 @@ def data_from_html_to_db():
         name = request.form['project_name']
         full_values_string += "(" + "'" + name + "'"
         street = request.form['street']
-        # if not street:
-        #     street = ""
         full_values_string += ',' + "'" + street + "'"
         street2 = request.form['street2']
-        # if not street2:
-        #     street2 = ""
         full_values_string += ',' + "'" + street2 + "'"
         city = request.form['city']
         full_values_string += ',' + "'" + city + "'"
         state = request.form['state']
         full_values_string += ',' + "'" + state + "'"
-        zipcode = request.form['zipcode']
-        # if not zipcode:
-        #     zipcode = ""   
+        zipcode = request.form['zipcode']  
         full_values_string += ',' + "'" + zipcode + "'"
         revenue = str("{:.2f}".format(float(request.form['revenue'])))
         full_values_string += ',' + revenue
@@ -67,11 +95,11 @@ def data_from_html_to_db():
             act_start_date = datetime.datetime.now()           
         full_values_string += ',' + "'" + str(act_start_date) + "'" + ')'
         # Print data list for database entry
-        print('-------------------------------------------')
-        print('Data list prepared for entry to database')
-        print('-------------------------------------------')
+        print('-------------------------------------------------------------------')
+        print('Data list prepared for entry to Project_Details table in database')
+        print('-------------------------------------------------------------------')
         print(full_values_string)
-        print('-------------------------------------------')
+        print('-------------------------------------------------------------------')
         cur = conn.cursor()
         # Adding form input data to PostgreSQL database
         try:
@@ -81,14 +109,60 @@ def data_from_html_to_db():
             print('-----------------------------------')
         except:
             print('---------------------------------------')
-            print('Sorry - could not write to database :(')
+            db_write_error = 'Oops - could not write to database!'
             print('---------------------------------------')
+            return render_template('error.html', error_type=db_write_error)
         return render_template('project_details.html')
     if request.method == 'GET':
         print('*****************')
         print('Getting form...')
         print('*****************')
         return render_template('new_project.html')
+
+
+# Route for Enter New User page, saves inputs to db, then redirects to Project Details page
+@app.route('/new_user', methods=['GET', 'POST'])
+def userdata_html_to_db():
+    if request.method == 'POST':
+        print('*****************')
+        print('Posting form...')
+        print('*****************')
+        full_values_string = ''
+        name = request.form['user_name']
+        full_values_string += "(" + "'" + name + "'"
+        job_title = request.form['job_title']
+        full_values_string += ',' + "'" + job_title + "'"
+        pay_rate = request.form['pay_rate']
+        full_values_string += ',' + "'" + pay_rate + "'"
+        email = request.form['email']
+        full_values_string += ',' + "'" + email + "'"
+        phone = request.form['phone']
+        full_values_string += ',' + "'" + phone + "'" + ")"
+        # Print data list for database entry
+        print('-------------------------------------------------------------------')
+        print('Data list prepared for entry to Project_Details table in database')
+        print('-------------------------------------------------------------------')
+        print(full_values_string)
+        print('-------------------------------------------------------------------')
+        cur = conn.cursor()
+        # Adding form input data to PostgreSQL database
+        try:
+            cur.execute('INSERT INTO users (name, job_title, pay_rate, email, phone) VALUES ' + full_values_string + ';')
+            print('-----------------------------------')
+            print('Data added to database - woohoo!')
+            print('-----------------------------------')
+        except:
+            print('---------------------------------------')
+            db_write_error = 'Oops - could not write to database!'
+            print('---------------------------------------')
+            return render_template('error.html', error_type=db_write_error)
+        return render_template('project_details.html')
+    if request.method == 'GET':
+        print('*****************')
+        print('Getting form...')
+        print('*****************')
+        return render_template('new_user.html')
+
 
 # Close database connection
     if(conn):
