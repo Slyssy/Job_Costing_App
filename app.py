@@ -1,5 +1,5 @@
 # Setup dependencies
-from flask import Flask, render_template, request, redirect, jsonify, json
+from flask import Flask, render_template, request, redirect, jsonify
 import psycopg2
 import datetime
 from datetime import date
@@ -59,7 +59,7 @@ def index():
         print('---------------------------------------')
         return render_template('error.html', error_type=db_read_error)
 
-
+      
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
 @app.route('/new_project', methods=['GET', 'POST'])
 def projdata_html_to_db():
@@ -139,7 +139,7 @@ def userdata_html_to_db():
         full_values_string += ',' + "'" + phone + "'" + ")"
         # Print data list for database entry
         print('-------------------------------------------------------------------')
-        print('Data list prepared for entry to Project_Details table in database')
+        print('Data list prepared for entry to Users table in database')
         print('-------------------------------------------------------------------')
         print(full_values_string)
         print('-------------------------------------------------------------------')
