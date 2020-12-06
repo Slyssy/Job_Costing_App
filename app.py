@@ -52,8 +52,7 @@ def index():
             project_dict['est_labor_expense'] = str(db_row[10])
             project_dict['act_start_date'] = str(db_row[11])
             project_list.append(project_dict)
-        return jsonify(project_list)
-        return render_template('index.html')
+        return render_template('index.html', project_list=json.dumps(project_list))
     else:
         print('---------------------------------------')
         db_read_error = 'Oops - could not read from database!'
