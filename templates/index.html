@@ -30,14 +30,14 @@
             <div class="card-body d-flex flex-column align-items-start">
                 <h2 class="card-title">Project Dashboard</h2>
                 <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-2">
-                    <a class="btn btn-primary border-white mt-auto" href="#">Performance Visualizations</a>
+                    <a class="btn btn-primary border-white mt-auto" href="#performanceVisualizations">Performance Visualizations</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                         <div class="collapse navbar-collapse" id="navbarColor02">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" title="Current breakpoint tier">
+                                    <a class="nav-link" href="enterTime.html" title="Current breakpoint tier">
                                         Enter Time	 
                                         <span class="d-xl-inline d-none"></span>
                                         <span class="d-lg-inline d-xl-none d-none"></span>
@@ -46,9 +46,9 @@
                                         <span class="d-inline d-sm-none"></span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="#">Edit Project</a>
-                                </li>                
+                                </li>                 -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="new_user.html">Create User</a>
                                 </li>
@@ -60,8 +60,8 @@
     </div>    
     <div class="container table_container">
         <form class="form-inline mr-auto" style="margin: 0px 0px 20px 0px">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button>
+            <input id="dashboard_search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <!-- <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button> -->
           </form>
         <table id= "dashboard" class="table table-striped">
             <thead>
@@ -88,7 +88,7 @@
                 </div>           
         </div>        
     </div>
-    <div class="container dashboard_visualizations">
+    <div id="performanceVisualizations" class="container dashboard_visualizations">
         <div class = "row">
             <div class="col-md-6">
                 <div id="bar"></div>
