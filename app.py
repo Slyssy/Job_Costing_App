@@ -1,5 +1,5 @@
 # Setup dependencies
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, json
 import psycopg2
 import datetime
 from datetime import date
