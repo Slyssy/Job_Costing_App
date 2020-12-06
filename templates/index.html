@@ -46,9 +46,9 @@
                                         <span class="d-inline d-sm-none"></span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="#">Edit Project</a>
-                                </li>                
+                                </li>                 -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="new_user.html">Create User</a>
                                 </li>
@@ -60,7 +60,7 @@
     </div>    
     <div class="container table_container">
         <form class="form-inline mr-auto" style="margin: 0px 0px 20px 0px">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <input id="dashboard_search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button>
           </form>
         <table id= "dashboard" class="table table-striped">
@@ -88,7 +88,7 @@
                 </div>           
         </div>        
     </div>
-    <div class="container dashboard_visualizations">
+    <div id="performanceVisualizations" class="container dashboard_visualizations">
         <div class = "row">
             <div class="col-md-6">
                 <div id="bar"></div>
