@@ -68,11 +68,11 @@
               <tr>
                 <th scope="col">Project Name</th>
                 <!-- <th scope="col">Status</th> -->
-                <th scope="col">Revenue</th>
+                <th scope="col">Revenue ($)</th>
                 <th scope="col">BDG Hours</th>
                 <th scope="col">ACT Hours</th>
-                <th scope="col">BDG Lab Exp</th>
-                <th scope="col">ACT Lab Exp</th>
+                <th scope="col">BDG Lab Exp ($)</th>
+                <th scope="col">ACT Lab Exp ($)</th>
                 <!-- <th scope="col">% Comp</th>                 -->
                 <th scope="col">Start Date</th>
               </tr> 
@@ -102,9 +102,7 @@
     <script>
         const project_list = {{ project_list | safe }}
         console.log(project_list)
-    </script>
-
-    
+    </script>    
       
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>

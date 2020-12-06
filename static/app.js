@@ -3,7 +3,7 @@ console.log("Hello")
 buildTable(project_list)
 
 function buildTable(data){
-    let table = document.getElementById('#dashboardTable')
+    let table = document.getElementById('dashboardTable')
 
     for (var i = 0; i < data.length; i++){
         var row = `<tr>
