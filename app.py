@@ -1,7 +1,7 @@
 # Setup dependencies
 from flask import Flask, render_template, request, json
 import psycopg2
-from datetime import datetime, date, time, timedelta
+from datetime import datetime, date, timedelta
 from pprint import pprint
 
 # Import Postgres database details from config file
@@ -246,7 +246,6 @@ def time_html_to_db():
         
         # Adding data to Timesheet table in database  
         try:
-             
             cur = conn.cursor() 
             cur.execute('INSERT INTO time_sheets (user_id, project_id, start_time, finish_time) VALUES ' + full_values_string + ';')
             print('-----------------------------------')
@@ -262,6 +261,7 @@ def time_html_to_db():
 @app.route('/project_details', methods=['GET', 'POST'])
 def proj_time_data():
     if request.method == 'GET':
+        print("I am here")
         cur = conn.cursor()
         # Fetch data from Project_Details table
         cur.execute('SELECT * FROM project_details');
@@ -279,11 +279,13 @@ def proj_time_data():
             project_dict['name'] = str(db_row[1])
             project_dict['street'] = str(db_row[2])
             project_dict['street2'] = str(db_row[3])
-            street2 = str(db_row[3]) + ","
+            street2 = str(db_row[3])
+            if street2 != "":
+                street2 = street2 + ", "
             project_dict['city'] = str(db_row[4])
             project_dict['state'] = str(db_row[5])
             project_dict['zip'] = str(db_row[6])
-            project_dict['project_address'] = str(db_row[2]) + "," + street2 + str(db_row[4]) + "," + str(db_row[5]) + " " + str(db_row[6])
+            project_dict['project_address'] = str(db_row[2]) + ", " + street2 + str(db_row[4]) + ", " + str(db_row[5]) + " " + str(db_row[6])
             project_dict['revenue'] = str(db_row[7])
             project_dict['est_labor_rate'] = str(db_row[8])
             project_dict['act_labor_hours'] = str(db_row[9])
@@ -291,7 +293,7 @@ def proj_time_data():
             project_dict['act_start_date'] = str(db_row[11])
             project_dict['act_comp_date'] = str(db_row[12])
             project_all.append(project_dict)
-
+        
         # Fetch data from Time_Sheets table
         cur.execute('SELECT * FROM time_sheets');
         timesheet_data = cur.fetchall()
@@ -309,22 +311,26 @@ def proj_time_data():
             timesheet_dict['project_id'] = str(db_row[2])
             timesheet_dict['start_time'] = str(db_row[3])
             timesheet_dict['finish_time'] = str(db_row[4])
-            hours_worked =
+            # Calculate difference of two Datetime objects to find hours worked
+            start_time = str(db_row[3])
+            start_time = datetime.strptime(start_time,'%Y-%m-%d %H:%M:%S')
+            finish_time = str(db_row[4])
+            finish_time = datetime.strptime(finish_time,'%Y-%m-%d %H:%M:%S')     
+            # Outputs a timedelta object   
+            time_difference = finish_time - start_time
+            # Convert time worked into hours worked
+            hours_worked = "{:.2f}".format(time_difference.total_seconds() / 3600)
             timesheet_dict['hours_worked'] = hours_worked   
             timesheet_all.append(timesheet_dict)
-
-
-        # Create a dictionary of all project and timesheet data, and convert to a JSON
-        project_page_dict = {}
-        project_page_dict['project_data'] = project_all
-        project_page_dict['timesheet_data'] = timesheet_all
-        pprint(project_page_dict)
-        return render_template('project_details.html', project_page_dict=json.dumps(project_page_dict))
+        
+        # Create a dictionary of all project and timesheet data, and output as a JSON
+        project_time_dict = {}
+        project_time_dict['project_data'] = project_all
+        project_time_dict['timesheet_data'] = timesheet_all
+        return render_template('project_details.html', project_time_dict=json.dumps(project_time_dict))        
     else:
-        print('---------------------------------------')
         db_read_error = 'Oops - could not read from database!'
-        print('---------------------------------------')
-        return render_template('error.html', error_type=db_read_error)
+        return render_template('error.html', error_type=db_read_error)       
 
 
 # Close database connection
