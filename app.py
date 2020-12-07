@@ -1,7 +1,7 @@
 # Setup dependencies
 from flask import Flask, render_template, request, json
 import psycopg2
-from datetime import datetime, date
+from datetime import datetime, date, time, timedelta
 from pprint import pprint
 
 # Import Postgres database details from config file
@@ -256,6 +256,75 @@ def time_html_to_db():
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
         return render_template('project_details.html')
+
+
+# Route for Project Details page -- retrieves data from db and/or performs analysis before displaying.
+@app.route('/project_details', methods=['GET', 'POST'])
+def proj_time_data():
+    if request.method == 'GET':
+        cur = conn.cursor()
+        # Fetch data from Project_Details table
+        cur.execute('SELECT * FROM project_details');
+        project_details_data = cur.fetchall()
+        print('------------------------------------------')
+        print('Data fetched from Project_Details table')
+        print('------------------------------------------')
+        print(project_details_data)
+        print('------------------------------------------')
+        #  Create a list of dictionaries with Project_Details table data
+        project_all = []
+        for db_row in project_details_data:
+            project_dict = {}
+            project_dict['project_id'] = str(db_row[0])
+            project_dict['name'] = str(db_row[1])
+            project_dict['street'] = str(db_row[2])
+            project_dict['street2'] = str(db_row[3])
+            street2 = str(db_row[3]) + ","
+            project_dict['city'] = str(db_row[4])
+            project_dict['state'] = str(db_row[5])
+            project_dict['zip'] = str(db_row[6])
+            project_dict['project_address'] = str(db_row[2]) + "," + street2 + str(db_row[4]) + "," + str(db_row[5]) + " " + str(db_row[6])
+            project_dict['revenue'] = str(db_row[7])
+            project_dict['est_labor_rate'] = str(db_row[8])
+            project_dict['act_labor_hours'] = str(db_row[9])
+            project_dict['est_labor_expense'] = str(db_row[10])
+            project_dict['act_start_date'] = str(db_row[11])
+            project_dict['act_comp_date'] = str(db_row[12])
+            project_all.append(project_dict)
+
+        # Fetch data from Time_Sheets table
+        cur.execute('SELECT * FROM time_sheets');
+        timesheet_data = cur.fetchall()
+        print('------------------------------------------')
+        print('Data fetched from Time_Sheets table')
+        print('------------------------------------------')
+        print(timesheet_data)
+        print('------------------------------------------')
+        #  Create a list of dictionaries with Time_Sheets table data
+        timesheet_all = []
+        for db_row in timesheet_data:
+            timesheet_dict = {}
+            timesheet_dict['time_sheet_id'] = str(db_row[0])
+            timesheet_dict['user_id'] = str(db_row[1])
+            timesheet_dict['project_id'] = str(db_row[2])
+            timesheet_dict['start_time'] = str(db_row[3])
+            timesheet_dict['finish_time'] = str(db_row[4])
+            hours_worked =
+            timesheet_dict['hours_worked'] = hours_worked   
+            timesheet_all.append(timesheet_dict)
+
+
+        # Create a dictionary of all project and timesheet data, and convert to a JSON
+        project_page_dict = {}
+        project_page_dict['project_data'] = project_all
+        project_page_dict['timesheet_data'] = timesheet_all
+        pprint(project_page_dict)
+        return render_template('project_details.html', project_page_dict=json.dumps(project_page_dict))
+    else:
+        print('---------------------------------------')
+        db_read_error = 'Oops - could not read from database!'
+        print('---------------------------------------')
+        return render_template('error.html', error_type=db_read_error)
 
 
 # Close database connection
