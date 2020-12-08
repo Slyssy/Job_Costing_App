@@ -1,3 +1,4 @@
+// Search Table
 $("#dashboard_search").on("keyup", function () {
   let value = $(this).val();
   console.log("Value:", value);
@@ -5,7 +6,7 @@ $("#dashboard_search").on("keyup", function () {
   buildTable(data);
 });
 
-buildTable(project_list);
+
 
 function searchTable(value, data) {
   let filteredData = [];
@@ -21,6 +22,31 @@ function searchTable(value, data) {
 
   return filteredData;
 }
+// Sort Table
+$('th').on('click', function(){
+  let column = $(this).data('column')
+  let order = $(this).data('order')
+  let arrow = $(this).html()
+  arrow = arrow.substring(0, arrow.length - 1)
+
+
+  if(order == 'desc'){
+    $(this).data('order', "asc")
+    desc_project_list = project_list.sort((a,b) => a[column] > b[column] ? 1 :
+    -1)
+    arrow += '&#9660'
+  }else{
+    $(this).data('order', "desc")
+    asc_project_list = project_list.sort((a,b) => a[column] < b[column] ? 1 :
+    -1)
+    arrow += '&#9650'
+  }
+  $(this).html(arrow)
+  buildTable(project_list)
+})
+
+
+buildTable(project_list);
 
 function buildTable(data) {
   let table = document.getElementById("dashboardTable");
