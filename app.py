@@ -308,8 +308,6 @@ def proj_time_data():
         # print('------------------------------------------')
         # print('Data fetched from Project_Details table')
         # print('------------------------------------------')
-        # print(project_details_data)
-        # print('------------------------------------------')
         # Create a list of dictionaries with Project_Details table data
         project_all = {}
         for proj in project_details_data:
@@ -339,8 +337,6 @@ def proj_time_data():
             timesheet_data = cur.fetchall()
             # print('------------------------------------------')
             # print('Data fetched from Time_Sheets table')
-            # print('------------------------------------------')
-            # print(timesheet_data)
             # print('------------------------------------------')
             # Create a list of dictionaries with Time_Sheets table data
             timesheet_all = []
