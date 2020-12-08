@@ -1,7 +1,8 @@
 # Setup dependencies
 from flask import Flask, render_template, request, json
 import psycopg2
-from datetime import datetime, date, timedelta
+import datetime
+from datetime import date, timedelta
 from pprint import pprint
 
 # Import Postgres database details from config file
