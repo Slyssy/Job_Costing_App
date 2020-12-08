@@ -51,6 +51,8 @@ def index():
             project_dict['est_labor_expense'] = str(db_row[10])
             project_dict['act_start_date'] = str(db_row[11])
             project_list.append(project_dict)
+        with open('static/result.json', 'w') as fp:
+            json.dump(project_list, fp)
         return render_template('index.html', project_list=json.dumps(project_list))
     else:
         print('---------------------------------------')
