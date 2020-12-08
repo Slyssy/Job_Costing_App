@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, json
 import psycopg2
 import datetime
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from pprint import pprint
 
 # Import Postgres database details from config file
@@ -260,7 +260,10 @@ def time_html_to_db():
         return render_template('project_details.html')
 
 
-# Route for Project Details page -- retrieves data from db and/or performs analysis before displaying
+      
+# Route for Project Details page -- retrieves data from db and/or performs analysis, and finally outputs JSON
+
+# Function for individual timesheet calculations
 def get_timesheet_dict(timesheet, act_labor_hours):
     timesheet_dict = {}
     timesheet_dict['project_id'] = str(timesheet[2])
@@ -289,15 +292,20 @@ def get_timesheet_dict(timesheet, act_labor_hours):
     # Convert time worked into hours worked
     hours_worked = float("{:.2f}".format(time_difference.total_seconds() / 3600))
     timesheet_dict['hours_worked'] = hours_worked    
-    act_labor_hours += float(hours_worked)
+    act_labor_hours += hours_worked
     return (timesheet_dict, act_labor_hours)
 
-def get_actual_labor_rate(timesheet_all, project_labor_hours):
+# Function for actual labor hour calculations
+def get_actual_labor_rate(timesheet_all, act_labor_hours):
     sum_of_hours_t_rate = 0
+    if not len(timesheet_all):
+        print('Empty array - project has no timesheets')
+        return 0
     for timesheet_dict in timesheet_all:
         sum_of_hours_t_rate += float(timesheet_dict['hours_worked']) * float(timesheet_dict['hourly_pay_rate'])
-    return (sum_of_hours_t_rate/float(project_labor_hours))
+    return (float(sum_of_hours_t_rate)/act_labor_hours)
 
+# Actual route to project_details
 @app.route('/project_details', methods=['GET', 'POST'])
 def proj_time_data():
     if request.method == 'GET':
@@ -305,9 +313,9 @@ def proj_time_data():
         # Fetch data from Project_Details table
         cur.execute('SELECT * FROM project_details');
         project_details_data = cur.fetchall()
-        # print('------------------------------------------')
-        # print('Data fetched from Project_Details table')
-        # print('------------------------------------------')
+        print('*****************************************')
+        print('Data fetched from Project_Details table')
+        print('*****************************************')
         # Create a list of dictionaries with Project_Details table data
         project_all = {}
         for proj in project_details_data:
@@ -333,19 +341,23 @@ def proj_time_data():
                               
             # Fetch Time_Sheets data for given project_id
             cur = conn.cursor()
+            print('Project ID = ' + str(project_id))
             cur.execute('SELECT * FROM time_sheets WHERE project_id=' + str(project_id));
             timesheet_data = cur.fetchall()
-            # print('------------------------------------------')
-            # print('Data fetched from Time_Sheets table')
-            # print('------------------------------------------')
+            print('------------------------------------------')
+            print('Data fetched from Time_Sheets table')
+            print('------------------------------------------')
             # Create a list of dictionaries with Time_Sheets table data
             timesheet_all = []
-            act_labor_hours = 0
-            # Get individual timesheet dict for display
+            act_labor_hours = float(0)
+            # Get individual timesheet_dict for display
+            if not len(timesheet_data):
+                print('No timesheets entered in database for this project, therefore skipping Project ID ' + str(project_id))
             for timesheet in timesheet_data:
+                # Calling the pre-defined function
                 (timesheet_dict, act_labor_hours) = get_timesheet_dict(timesheet, act_labor_hours)
                 timesheet_all.append(timesheet_dict)
-            # Now that we know total project labor hours (act_labor_hours), find project labor rate
+            # Using the predefined function for actual labor hours, calculate actual labor rate
             act_labor_rate = get_actual_labor_rate(timesheet_all, act_labor_hours)
             project_dict["timesheets"] = timesheet_all
             project_all["project_id: "+ str(project_id)] = project_dict
@@ -377,7 +389,7 @@ def proj_time_data():
             project_dict['fin_act_gross_profit'] = str(fin_act_gross_profit)
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format((fin_act_gross_margin)) + " %"
-        # pprint(project_all)
+        pprint(project_all)
         
         # Create a dictionary of all project and timesheet data, and output as a JSON
         return render_template('project_details.html', project_all=json.dumps(project_all))
