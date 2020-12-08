@@ -257,7 +257,6 @@ def time_html_to_db():
         return render_template('project_details.html')
 
 
-
 # Route for Project Details page -- retrieves data from db and/or performs analysis before displaying
 def get_timesheet_dict(timesheet, act_labor_hours):
     timesheet_dict = {}
@@ -401,7 +400,7 @@ def proj_time_data():
             return render_template('error.html', error_type=db_write_error)
         return render_template('project_details.html')
 
-
+      
 # Close database connection
     if(conn):
         cur.close()
