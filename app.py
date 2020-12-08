@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, jsonify, json
 import psycopg2
 import datetime
-from datetime import date
+from datetime import date, timedelta
 from pprint import pprint
 
 # Import Postgres database details from config file
