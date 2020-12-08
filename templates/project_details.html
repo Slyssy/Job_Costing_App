@@ -164,24 +164,26 @@
                         <option value="100">100%</option>
                         </select>
                 </div> -->
-          <div class="col-lg-6 px-md-5">
-            <label class="form-control-label text-muted">Start Date:</label>
-            <input class="form-control" type="text" placeholder="" />
-          </div>
-          <div class="col-lg-6 px-md-5">
-            <label class="form-control-label text-muted">End Date:</label>
-            <input id="end_datepicker" type="text" />
-          </div>
-          <script>
-            $("#start_datepicker").datepicker({});
-          </script>
-          <script>
-            $("#end_datepicker").datepicker({});
-          </script>
-        </div>
-      </div>
-    </div>
-    <!--Project Financials  -->
+                <div class="col-lg-6 px-md-5">
+                  <label class="form-control-label text-muted">Start Date:</label>
+                    <input class="form-control" type="text" placeholder="">
+                </div> 
+                <div class="col-lg-6  px-md-5" method="POST">
+                    <label class="form-control-label text-muted">End Date:</label>
+                    <input id="end_datepicker" name=end_date type = "text" />
+                </div>               
+                <script>
+                    $('#start_datepicker').datepicker({
+                    });
+                </script>
+                <script>
+                    $('#end_datepicker').datepicker({
+                    });
+                </script>
+            </div>
+        </div>  
+    </div> 
+     <!--Project Financials  -->
     <div class="container financials_container">
       <div class="card bg-primary text-white h-100">
         <div class="card-body d-flex flex-column align-items-start">
