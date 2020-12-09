@@ -2,7 +2,6 @@
 import os
 from flask import Flask, render_template, request, json
 import psycopg2
-import datetime
 from datetime import date, timedelta, datetime
 from pprint import pprint
 
@@ -226,9 +225,9 @@ def projdata_html_to_db():
         est_labor_expense = str("{:.2f}".format(float(est_labor_hours) * float(est_labor_rate)))
         full_values_string += ',' + est_labor_expense
         if 'act_start_date' in request.form and request.form['act_start_date'] != "":
-            act_start_date = datetime.datetime.strptime(request.form['act_start_date'], '%m/%d/%Y').date()
+            act_start_date = datetime.strptime(request.form['act_start_date'], '%m/%d/%Y').date()
         else:
-            act_start_date = datetime.datetime.now()           
+            act_start_date = datetime.now()           
         full_values_string += ',' + "'" + str(act_start_date) + "'" + ')'
         # Print data list for database entry
         print('-------------------------------------------------------------------')
