@@ -132,3 +132,5 @@ dmypy.json
 
 # PostgreSQL
 postgres_config.py
+
+*result.json
