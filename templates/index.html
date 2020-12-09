@@ -104,8 +104,7 @@
           type="text"
           placeholder="Search"
           aria-label="Search"
-        />
-        <!-- <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button> -->
+        />       
       </form>
       <table id="dashboard" class="table table-striped">
         <thead>
@@ -123,6 +122,109 @@
         <tbody id="dashboardTable"></tbody>
       </table>
     </div>
+    <!-- Start Project Details-->
+    <div class="container details_container">
+      <div class="card bg-primary text-white h-100">
+        <div class="card-body d-flex flex-column align-items-start">
+          <h4 class="card-title">Project Details</h4>
+        </div>
+      </div>      
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Project Status</th>
+              <th scope="col">Revenue</th>
+              <th scope="col">Budget Labor Hours</th>
+              <th scope="col">Actual labor Hours</th>
+              <th scope="col">Budget Labor Expense</th>
+              <th scope="col">Actual Labor Expense</th>            
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>          
+    </div>  
+     <!-- Start Project Milestone Dates -->
+     <div class="container project_updates_container">
+      <div class="card bg-primary text-white h-100">
+        <div class="card-body d-flex flex-column align-items-start">
+          <h4 class="card-title">Project Milestone Dates</h4>
+          <p class="card-text">
+            When project is complete, simply use the date picker to select the
+            End Date.
+          </p>
+        </div>
+      </div>
+      <div class="card border-primary h-100">
+        <div class="row" style="padding: 15px 0">
+          
+                <div class="col-lg-6 px-md-5">
+                  <label class="form-control-label text-muted">Start Date:</label>
+                    <input class="form-control" type="text" placeholder="">
+                </div> 
+                <div class="col-lg-6  px-md-5" method="POST">
+                    <label class="form-control-label text-muted">End Date:</label>
+                    <input id="end_datepicker" name=end_date type = "text" />
+                </div>               
+                <script>
+                    $('#start_datepicker').datepicker({
+                    });
+                </script>
+                <script>
+                    $('#end_datepicker').datepicker({
+                    });
+                </script>
+            </div>
+        </div>  
+    </div> 
+      <!--Project Financials  -->
+      <div class="container financials_container">
+        <div class="card bg-primary text-white h-100">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h4 class="card-title">Project Financials</h4>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Budgeted</th>
+              <th scope="col">Actual</th>            
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Project Revenue:</th>
+              <td>{{New Project Revenue}}</td>
+              <td>{{New Project Revenue}}</td>            
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Hours:</th>
+              <td>{{New Project Labor Hours}}</td>
+              <td>{{From Timesheet}}</td>            
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Rate:</th>
+              <td>{{New Project Labor Rate}}</td>
+              <td>{{From Timesheet}}</td>            
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Expense:</th>
+              <td>{{New Project Labor Expense}}</td>
+              <td>{{LH x LR}}</td>            
+            </tr>
+            <tr>
+              <th scope="row">Project Gross Profit:</th>
+              <td>{{New Project Gross Profit}}</td>
+              <td>{{Rev - LE}}</td>           
+            </tr>
+            <tr>
+              <th scope="row">Project Gross Margin:</th>
+              <td>{{New Project Gross Margin}}</td>
+              <td>{{(GP / Rev) x 100}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>    
     <!-- Start Visualizations -->
     <div class="container project_updates_container">
       <div
