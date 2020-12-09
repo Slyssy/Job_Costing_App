@@ -140,31 +140,31 @@ def projects():
 
             # Calculations for Project Financials - Budgeted/Estimated
             fin_est_revenue = revenue
-            project_dict['fin_est_revenue '] = str(revenue)
+            project_dict['fin_est_revenue '] = f'{float(revenue):,}'
             fin_est_labor_hours = est_labor_hours
             project_dict['fin_est_labor_hours'] = str(fin_est_labor_hours)
             fin_est_labor_rate = est_labor_rate
-            project_dict['fin_est_labor_rate'] = str(fin_est_labor_rate)
+            project_dict['fin_est_labor_rate'] = f'{float(fin_est_labor_rate):,}'
             fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['fin_est_labor_expense'] = str(fin_est_labor_expense)
+            project_dict['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
             fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-            project_dict['fin_est_gross_profit'] = str(fin_est_gross_profit)
+            project_dict['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
             fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
-            project_dict['fin_est_gross_margin'] = "{:.2f}".format((fin_est_gross_margin)) + " %"
+            project_dict['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
 
             # Calculations for Project Financials - Actual
             fin_act_revenue = revenue
-            project_dict['fin_act_revenue'] = str(fin_act_revenue)
+            project_dict['fin_act_revenue'] = f'{float(fin_act_revenue):,}'
             fin_act_labor_hours = act_labor_hours
             project_dict['fin_act_labor_hours'] = str(fin_act_labor_hours)
             fin_act_labor_rate = act_labor_rate
-            project_dict['fin_act_labor_rate'] = "{:.2f}".format((fin_act_labor_rate))
+            project_dict['fin_act_labor_rate'] = "{:.2f}".format(fin_act_labor_rate)
             fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
-            project_dict['fin_act_labor_expense'] = str(fin_act_labor_expense)
+            project_dict['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
             fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-            project_dict['fin_act_gross_profit'] = str(fin_act_gross_profit)
+            project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
-            project_dict['fin_act_gross_margin'] = "{:.2f}".format((fin_act_gross_margin)) + " %"
+            project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
         pprint(project_list)
 
         # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
