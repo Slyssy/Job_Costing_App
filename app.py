@@ -174,28 +174,27 @@ def projects():
         if project_id:
             url_string = '/?project_id=' + str(project_id)
             return render_template(url_string, project_list=json.dumps(project_list)) 
-            
-            if request.method == 'POST':
-                act_end_date = request.form['end_date']
-                cur = conn.cursor()
-                # Adding project end date to Project_Details table in database
-                try:
-                    cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
-                    print('-----------------------------------')
-                    print('Data added to database - woohoo!')
-                    print('-----------------------------------')
-                except:
-                    db_write_error = 'Oops - could not write to database!'
-                    return render_template('error.html', error_type=db_write_error)
-                return render_template(url_string) 
-            
         else:
-            return render_template('index.html', project_list=json.dumps(project_list))
+            return render_template('index.html', project_list=json.dumps(project_list))        
+        
+        if request.method == 'POST':
+            act_end_date = request.form['end_date']
+            cur = conn.cursor()
+            # Adding project end date to Project_Details table in database
+            try:
+                cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
+                print('-----------------------------------')
+                print('Data added to database - woohoo!')
+                print('-----------------------------------')
+            except:
+                db_write_error = 'Oops - could not write to database!'
+                return render_template('error.html', error_type=db_write_error)
+            return render_template(url_string) 
        
     if not project_list:
         db_read_error = 'Oops - could not read from database!'
         return render_template('error.html', error_type=db_read_error)  
-        
+
 
       
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
