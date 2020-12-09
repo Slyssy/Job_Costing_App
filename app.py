@@ -32,6 +32,12 @@ if conn:
 app = Flask(__name__)
 
 
+# Route for Index page -- the App Homepage
+@app.route("/", methods=['GET'])
+def index():
+    return render_template("index.html")
+
+
 # Function for individual timesheet calculations - used for Index/Dashboard and Project Details routes
 def get_timesheet_dict(timesheet, act_labor_hours):
     timesheet_dict = {}
@@ -75,24 +81,18 @@ def get_actual_labor_rate(timesheet_all, act_labor_hours):
     return (float(sum_of_hours_t_rate)/act_labor_hours)
 
 
-# Route for Index page / Dashboard with Filter (by project_id) to Project Details
-@app.route("/", methods=['GET', 'POST'])
-def projects():
+# Route for Dashboard -- fetches project data from database for display, writes an input field to database
+@app.route("/dashboard", methods=['GET', 'POST'])
+def dashboard():
     if request.method == 'GET':
-        # Define query by project_id
-        project_id = request.args.get("project_id")
         cur = conn.cursor()
-        # Fetch data from Project_Details table based on project_id
-        if project_id:
-            cur.execute('SELECT * FROM project_details WHERE project_id=%s', [project_id]);
-        # Fetch all data from Project_Details table if no project_id is specified
-        else:
-            cur.execute('SELECT * FROM project_details' + ';')
+        # Fetch data from Project_Details table
+        cur.execute('SELECT * FROM project_details' + ';')
         project_details_data = cur.fetchall()
         print('*****************************************')
         print('Data fetched from Project_Details table')
         print('*****************************************')
-        # Create a list of dictionaries with Project_Details table data
+        # Create a dictionary of dictionaries with Project_Details table data
         project_list = {}
         for proj in project_details_data:
             project_dict = {}
@@ -170,30 +170,25 @@ def projects():
         # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
         # with open('static/result.json', 'w') as fp:
         #     json.dump(project_list, fp)
-        if project_id:
-            url_string = '/?project_id=' + str(project_id)
-            return render_template(url_string, project_list=json.dumps(project_list)) 
-        else:
-            return render_template('index.html', project_list=json.dumps(project_list))        
-        
-        if request.method == 'POST':
-            act_end_date = request.form['end_date']
-            cur = conn.cursor()
-            # Adding project end date to Project_Details table in database
-            try:
-                cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
-                print('-----------------------------------')
-                print('Data added to database - woohoo!')
-                print('-----------------------------------')
-            except:
-                db_write_error = 'Oops - could not write to database!'
-                return render_template('error.html', error_type=db_write_error)
-            return render_template(url_string) 
-       
-    if not project_list:
+        return render_template('dashboard.html', project_list=json.dumps(project_list))
+           
+    else:
         db_read_error = 'Oops - could not read from database!'
-        return render_template('error.html', error_type=db_read_error)  
+        return render_template('error.html', error_type=db_read_error) 
 
+    if request.method == 'POST':
+        act_end_date = request.form['end_date']
+        cur = conn.cursor()
+        # Adding project end date to Project_Details table in database
+        try:
+            cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
+            print('-----------------------------------')
+            print('Data added to database - woohoo!')
+            print('-----------------------------------')
+        except:
+            db_write_error = 'Oops - could not write to database!'
+            return render_template('error.html', error_type=db_write_error)
+        return render_template('dashboard.html') 
 
       
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
