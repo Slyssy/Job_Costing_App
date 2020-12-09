@@ -76,36 +76,50 @@ def get_actual_labor_rate(timesheet_all, act_labor_hours):
     return (float(sum_of_hours_t_rate)/act_labor_hours)
 
 
-# Route for Index page / Dashboard -- fetches data from db and displays on dashboard
-@app.route("/", methods=['GET'])
-def index():
+# Route for Index page / Dashboard with Filter (by project_id) to Project Details
+@app.route("/", methods=['GET', 'POST'])
+def projects():
     if request.method == 'GET':
+        # Define query by project_id
+        project_id = request.args.get("project_id")
         cur = conn.cursor()
-        # Fetch data from Project_Details table
-        cur.execute('SELECT * FROM project_details');
+        # Fetch data from Project_Details table based on project_id
+        if project_id:
+            cur.execute('SELECT * FROM project_details WHERE project_id=%s', [project_id]);
+        # Fetch all data from Project_Details table if no project_id is specified
+        else:
+            cur.execute('SELECT * FROM project_details' + ';')
         project_details_data = cur.fetchall()
-        print('------------------------------------------')
+        print('*****************************************')
         print('Data fetched from Project_Details table')
-        print('------------------------------------------')
-        print(project_details_data)
-        print('------------------------------------------')
+        print('*****************************************')
         # Create a list of dictionaries with Project_Details table data
         project_list = {}
         for proj in project_details_data:
             project_dict = {}
             project_id = str(proj[0])
             project_dict['project_name'] = str(proj[1])
+            street = str(proj[2])
+            street2 = str(proj[3])
+            if street2 != "":
+                street2 = street2 + ", "
+            city = str(proj[4])
+            state = str(proj[5])
+            zipcode = str(proj[6])
+            project_dict['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
             revenue = str(proj[7])
             est_labor_rate = str(proj[8])
             est_labor_hours = str(proj[9])
             est_labor_expense = str(proj[10])
             act_start_date = str(proj[11])
-            project_dict['act_start_date'] = act_start_date          
-                              
+            project_dict['act_start_date'] = act_start_date
+            if str(proj[12]) != "":
+                project_dict['act_end_date'] = str(proj[12])              
+                            
             # Fetch Time_Sheets data for given project_id
             cur = conn.cursor()
             print('Project ID = ' + str(project_id))
-            cur.execute('SELECT * FROM time_sheets WHERE project_id=' + str(project_id));
+            cur.execute('SELECT * FROM time_sheets WHERE project_id=' + str(project_id) + ';')
             timesheet_data = cur.fetchall()
             print('------------------------------------------')
             print('Data fetched from Time_Sheets table')
@@ -122,32 +136,66 @@ def index():
                 timesheet_all.append(timesheet_dict)
             # Using the predefined function for actual labor hours, calculate actual labor rate
             act_labor_rate = get_actual_labor_rate(timesheet_all, act_labor_hours)
+            project_dict["timesheets"] = timesheet_all
             project_list["project_id: "+ str(project_id)] = project_dict
 
             # Calculations for Project Financials - Budgeted/Estimated
             fin_est_revenue = revenue
-            project_dict['revenue'] = str(fin_est_revenue)
+            project_dict['fin_est_revenue '] = str(revenue)
             fin_est_labor_hours = est_labor_hours
-            project_dict['est_labor_hours'] = str(fin_est_labor_hours)
+            project_dict['fin_est_labor_hours'] = str(fin_est_labor_hours)
             fin_est_labor_rate = est_labor_rate
+            project_dict['fin_est_labor_rate'] = str(fin_est_labor_rate)
             fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['est_labor_expense'] = str(fin_est_labor_expense)
+            project_dict['fin_est_labor_expense'] = str(fin_est_labor_expense)
+            fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
+            project_dict['fin_est_gross_profit'] = str(fin_est_gross_profit)
+            fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
+            project_dict['fin_est_gross_margin'] = "{:.2f}".format((fin_est_gross_margin)) + " %"
 
             # Calculations for Project Financials - Actual
+            fin_act_revenue = revenue
+            project_dict['fin_act_revenue'] = str(fin_act_revenue)
             fin_act_labor_hours = act_labor_hours
-            project_dict['act_labor_hours'] = str(fin_act_labor_hours)
+            project_dict['fin_act_labor_hours'] = str(fin_act_labor_hours)
             fin_act_labor_rate = act_labor_rate
+            project_dict['fin_act_labor_rate'] = "{:.2f}".format((fin_act_labor_rate))
             fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
-            project_dict['act_labor_expense'] = str(fin_act_labor_expense)
+            project_dict['fin_act_labor_expense'] = str(fin_act_labor_expense)
+            fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
+            project_dict['fin_act_gross_profit'] = str(fin_act_gross_profit)
+            fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
+            project_dict['fin_act_gross_margin'] = "{:.2f}".format((fin_act_gross_margin)) + " %"
         pprint(project_list)
 
-        # Create a list of dictionaries with selected project_details table data, and output as a JSON
+        # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
         # with open('static/result.json', 'w') as fp:
         #     json.dump(project_list, fp)
-        return render_template('index.html', project_list=json.dumps(project_list))
-    else:
+        if project_id:
+            url_string = '/?project_id=' + str(project_id)
+            return render_template(url_string, project_list=json.dumps(project_list)) 
+            
+            if request.method == 'POST':
+                act_end_date = request.form['end_date']
+                cur = conn.cursor()
+                # Adding project end date to Project_Details table in database
+                try:
+                    cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
+                    print('-----------------------------------')
+                    print('Data added to database - woohoo!')
+                    print('-----------------------------------')
+                except:
+                    db_write_error = 'Oops - could not write to database!'
+                    return render_template('error.html', error_type=db_write_error)
+                return render_template(url_string) 
+            
+        else:
+            return render_template('index.html', project_list=json.dumps(project_list))
+       
+    if not project_list:
         db_read_error = 'Oops - could not read from database!'
-        return render_template('error.html', error_type=db_read_error) 
+        return render_template('error.html', error_type=db_read_error)  
+        
 
       
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
@@ -339,113 +387,6 @@ def time_html_to_db():
         try:
             cur = conn.cursor() 
             cur.execute('INSERT INTO time_sheets (user_id, project_id, start_time, finish_time) VALUES ' + full_values_string + ';')
-            print('-----------------------------------')
-            print('Data added to database - woohoo!')
-            print('-----------------------------------')
-        except:
-            db_write_error = 'Oops - could not write to database!'
-            return render_template('error.html', error_type=db_write_error)
-        return render_template('project_details.html')
-
-      
-# Route for Project Details page -- retrieves data from db and/or performs analysis, and finally outputs JSON
-@app.route('/project_details', methods=['GET', 'POST'])
-def proj_time_data():
-    if request.method == 'GET':
-        cur = conn.cursor()
-        # Fetch data from Project_Details table
-        cur.execute('SELECT * FROM project_details');
-        project_details_data = cur.fetchall()
-        print('*****************************************')
-        print('Data fetched from Project_Details table')
-        print('*****************************************')
-        # Create a list of dictionaries with Project_Details table data
-        project_all = {}
-        for proj in project_details_data:
-            project_dict = {}
-            project_id = str(proj[0])
-            project_dict['project_name'] = str(proj[1])
-            street = str(proj[2])
-            street2 = str(proj[3])
-            if street2 != "":
-                street2 = street2 + ", "
-            city = str(proj[4])
-            state = str(proj[5])
-            zipcode = str(proj[6])
-            project_dict['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
-            revenue = str(proj[7])
-            est_labor_rate = str(proj[8])
-            est_labor_hours = str(proj[9])
-            est_labor_expense = str(proj[10])
-            act_start_date = str(proj[11])
-            project_dict['act_start_date'] = act_start_date
-            if str(proj[12]) != "":
-                project_dict['act_end_date'] = str(proj[12])              
-                              
-            # Fetch Time_Sheets data for given project_id
-            cur = conn.cursor()
-            print('Project ID = ' + str(project_id))
-            cur.execute('SELECT * FROM time_sheets WHERE project_id=' + str(project_id));
-            timesheet_data = cur.fetchall()
-            print('------------------------------------------')
-            print('Data fetched from Time_Sheets table')
-            print('------------------------------------------')
-            # Create a list of dictionaries with Time_Sheets table data
-            timesheet_all = []
-            act_labor_hours = float(0)
-            # Get individual timesheet_dict for display
-            if not len(timesheet_data):
-                print('No timesheets entered in database for this project, therefore skipping Project ID ' + str(project_id))
-            for timesheet in timesheet_data:
-                # Calling the pre-defined function
-                (timesheet_dict, act_labor_hours) = get_timesheet_dict(timesheet, act_labor_hours)
-                timesheet_all.append(timesheet_dict)
-            # Using the predefined function for actual labor hours, calculate actual labor rate
-            act_labor_rate = get_actual_labor_rate(timesheet_all, act_labor_hours)
-            project_dict["timesheets"] = timesheet_all
-            project_all["project_id: "+ str(project_id)] = project_dict
-
-            # Calculations for Project Financials - Budgeted/Estimated
-            fin_est_revenue = revenue
-            project_dict['fin_est_revenue '] = str(revenue)
-            fin_est_labor_hours = est_labor_hours
-            project_dict['fin_est_labor_hours'] = str(fin_est_labor_hours)
-            fin_est_labor_rate = est_labor_rate
-            project_dict['fin_est_labor_rate'] = str(fin_est_labor_rate)
-            fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['fin_est_labor_expense'] = str(fin_est_labor_expense)
-            fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-            project_dict['fin_est_gross_profit'] = str(fin_est_gross_profit)
-            fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
-            project_dict['fin_est_gross_margin'] = "{:.2f}".format((fin_est_gross_margin)) + " %"
-
-            # Calculations for Project Financials - Actual
-            fin_act_revenue = revenue
-            project_dict['fin_act_revenue'] = str(fin_act_revenue)
-            fin_act_labor_hours = act_labor_hours
-            project_dict['fin_act_labor_hours'] = str(fin_act_labor_hours)
-            fin_act_labor_rate = act_labor_rate
-            project_dict['fin_act_labor_rate'] = "{:.2f}".format((fin_act_labor_rate))
-            fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
-            project_dict['fin_act_labor_expense'] = str(fin_act_labor_expense)
-            fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-            project_dict['fin_act_gross_profit'] = str(fin_act_gross_profit)
-            fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
-            project_dict['fin_act_gross_margin'] = "{:.2f}".format((fin_act_gross_margin)) + " %"
-        pprint(project_all)
-        
-        # Create a dictionary of all project and timesheet data, and output as a JSON
-        return render_template('project_details.html', project_all=json.dumps(project_all))
-    else:
-        db_read_error = 'Oops - could not read from database!'
-        return render_template('error.html', error_type=db_read_error)   
-
-    if request.method == 'POST':
-        act_end_date = request.form['end_date']
-        cur = conn.cursor()
-        # Adding project end data to Project_Details table in database
-        try:
-            cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
             print('-----------------------------------')
             print('Data added to database - woohoo!')
             print('-----------------------------------')
