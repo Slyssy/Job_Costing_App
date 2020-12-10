@@ -1,6 +1,6 @@
 # Setup dependencies
 import os
-from flask import Flask, render_template, request, json
+from flask import Flask, render_template, request, redirect, url_for, json
 import psycopg2
 from datetime import date, timedelta, datetime
 from pprint import pprint
@@ -83,7 +83,7 @@ def get_actual_labor_rate(timesheet_all, act_labor_hours):
 
 # Route for Dashboard -- fetches project data from database for display, writes an input field to database
 @app.route("/dashboard", methods=['GET', 'POST'])
-def dashboard():
+def dashboard_db_to_html():
     if request.method == 'GET':
         cur = conn.cursor()
         # Fetch data from Project_Details table
@@ -191,12 +191,18 @@ def dashboard():
         except:
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
-        return render_template('dashboard.html') 
+        return redirect(url_for('dashboard_db_to_html'))
 
       
 # Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
 @app.route('/new_project', methods=['GET', 'POST'])
 def projdata_html_to_db():
+    if request.method == 'GET':
+        print('*****************')
+        print('Getting form...')
+        print('*****************')
+        return render_template('new_project.html')    
+    
     if request.method == 'POST':
         print('*****************')
         print('Posting form...')
@@ -245,17 +251,18 @@ def projdata_html_to_db():
             db_write_error = 'Oops - could not write to database!'
             print('---------------------------------------')
             return render_template('error.html', error_type=db_write_error)
-        return render_template('project_details.html')
-    if request.method == 'GET':
-        print('*****************')
-        print('Getting form...')
-        print('*****************')
-        return render_template('new_project.html')
+        return redirect(url_for('dashboard_db_to_html'))
 
 
 # Route for Enter New User page, saves inputs to db, then redirects to Project Details page
 @app.route('/new_user', methods=['GET', 'POST'])
 def userdata_html_to_db():
+    if request.method == 'GET':
+        print('*****************')
+        print('Getting form...')
+        print('*****************')
+        return render_template('new_user.html')    
+    
     if request.method == 'POST':
         print('*****************')
         print('Posting form...')
@@ -289,12 +296,7 @@ def userdata_html_to_db():
             db_write_error = 'Oops - could not write to database!'
             print('---------------------------------------')
             return render_template('error.html', error_type=db_write_error)
-        return render_template('project_details.html')
-    if request.method == 'GET':
-        print('*****************')
-        print('Getting form...')
-        print('*****************')
-        return render_template('new_user.html')
+        return redirect(url_for('dashboard_db_to_html'))
 
 
 # Route for new Time entry -- saves inputs to Time_Sheets table in db, then redirects to Project Details page
@@ -310,7 +312,7 @@ def time_html_to_db():
         print('------------------------------------------------------------')   
         print(employee_names_fetch)
         print('------------------------------------------------------------')   
-        # Convert employee names to a JSON
+        # Convert employee names to a list
         employee_list = []
         for db_row in employee_names_fetch:
             employee_dict = {}
@@ -389,7 +391,7 @@ def time_html_to_db():
         except:
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
-        return render_template('project_details.html')
+        return redirect(url_for('dashboard_db_to_html'))
 
 @app.route("/search")
 def search():
