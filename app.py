@@ -412,9 +412,9 @@ def project_search():
         print('*****************************************')
         # Create a list of dictionaries with Project_Details table data
         for proj in project_details_data:
-            project_dict = {}
+            project_list = {}
             project_id = str(proj[0])
-            project_dict['project_name'] = str(proj[1])
+            project_list['project_name'] = str(proj[1])
             street = str(proj[2])
             street2 = str(proj[3])
             if street2 != "":
@@ -422,15 +422,15 @@ def project_search():
             city = str(proj[4])
             state = str(proj[5])
             zipcode = str(proj[6])
-            project_dict['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
+            project_list['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
             revenue = str(proj[7])
             est_labor_rate = str(proj[8])
             est_labor_hours = str(proj[9])
             est_labor_expense = str(proj[10])
             act_start_date = str(proj[11])
-            project_dict['act_start_date'] = act_start_date
+            project_list['act_start_date'] = act_start_date
             if str(proj[12]) != "":
-                project_dict['act_end_date'] = str(proj[12])              
+                project_list['act_end_date'] = str(proj[12])              
                             
             # Fetch Time_Sheets data for given project_id
             cur = conn.cursor()
@@ -455,40 +455,40 @@ def project_search():
 
             # Calculations for Project Financials - Budgeted/Estimated
             fin_est_revenue = revenue
-            project_dict['fin_est_revenue '] = f'{float(revenue):,}'
+            project_list['fin_est_revenue '] = f'{float(revenue):,}'
             fin_est_labor_hours = est_labor_hours
-            project_dict['fin_est_labor_hours'] = str(fin_est_labor_hours)
+            project_list['fin_est_labor_hours'] = str(fin_est_labor_hours)
             fin_est_labor_rate = est_labor_rate
-            project_dict['fin_est_labor_rate'] = f'{float(fin_est_labor_rate):,}'
+            project_list['fin_est_labor_rate'] = f'{float(fin_est_labor_rate):,}'
             fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
+            project_list['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
             fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-            project_dict['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
+            project_list['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
             fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
-            project_dict['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
+            project_list['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
 
             # Calculations for Project Financials - Actual
             fin_act_revenue = revenue
-            project_dict['fin_act_revenue'] = f'{float(fin_act_revenue):,}'
+            project_list['fin_act_revenue'] = f'{float(fin_act_revenue):,}'
             fin_act_labor_hours = act_labor_hours
-            project_dict['fin_act_labor_hours'] = str(fin_act_labor_hours)
+            project_list['fin_act_labor_hours'] = str(fin_act_labor_hours)
             fin_act_labor_rate = act_labor_rate
-            project_dict['fin_act_labor_rate'] = "{:.2f}".format(fin_act_labor_rate)
+            project_list['fin_act_labor_rate'] = "{:.2f}".format(fin_act_labor_rate)
             fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
-            project_dict['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
+            project_list['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
             fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-            project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
+            project_list['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
-            project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
-            pprint(project_dict)     
+            project_list['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
+            pprint(project_list)     
 
             # Create a dictionary with project_details table data chosen, and output as a JSON      
             if project_id:
-                return render_template('search.html', name=project_id, project_dict = json.dumps(project_dict))
+                return render_template('search.html', name=project_id, project_list = json.dumps(project_list))
             else:
                 return redirect(url_for('dashboard_data'))
 
-    if not project_dict:
+    if not project_list:
         db_read_error = 'Oops - could not read from database!'
         return render_template('error.html', error_type=db_read_error)  
 
