@@ -355,7 +355,7 @@ def time_html_to_db():
         project_name = request.form['project_name']
         # Fetching user_id and project_id from Users and Project Details tables in database  
         cur = conn.cursor() 
-        user_id = cur.execute('SELECT user_id FROM users WHERE name=employee_name');
+        user_id = cur.execute('SELECT user_id FROM users WHERE name=' + str(employee_name));
         full_values_string = "(" + "'" + user_id + "'"
         project_id = cur.execute('SELECT project_id FROM project_details WHERE name=project_name');
         full_values_string += "," + "'" + project_id + "'"
