@@ -45,6 +45,7 @@ $('th').on('click', function(){
   buildTable(project_list)
 })
 
+// let dashData = project_list.project_id;
 
 buildTable(project_list);
 
@@ -53,17 +54,21 @@ function buildTable(data) {
 
   table.innerHTML = "";
 
-  for (var i = 0; i < data.length; i++) {
+  for (const item in data) {
     var row = `<tr>
-                        <td>${data[i].name}</td>
-                        <td>${data[i].revenue}</td>
-                        <td>${data[i].est_labor_hours}</td>
-                        <td>${data[i].est_labor_hours}</td>
-                        <td>${data[i].est_labor_expense}</td>
-                        <td>${data[i].est_labor_expense}</td>
-                        <td>${data[i].act_start_date}</td>
+                        <td>${data[item].project_name}</td>
+                        <td>${data[item].fin_act_revenue}</td>
+                        <td>${data[item].fin_est_labor_hours}</td>
+                        <td>${data[item].fin_act_labor_hours}</td>
+                        <td>${data[item].fin_est_labor_expense}</td>
+                        <td>${data[item].fin_act_labor_expense}</td>
+                        <td>${data[item].act_start_date}</td>
                    </tr>`;
 
     table.innerHTML += row;
   }
+}
+for (const item in project_list) {
+  // console.log(item)
+  console.log(project_list[item])
 }
