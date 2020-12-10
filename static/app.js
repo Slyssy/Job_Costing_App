@@ -11,12 +11,12 @@ $("#dashboard_search").on("keyup", function () {
 function searchTable(value, data) {
   let filteredData = [];
 
-  for (var i = 0; i < data.length; i++) {
+  for (const item in data) {
     value = value.toLowerCase();
-    let name = data[i].name.toLowerCase();
+    let name = data[item].project_name.toLowerCase();
 
     if (name.includes(value)) {
-      filteredData.push(data[i]);
+      filteredData.push(data[item]);
     }
   }
 
@@ -53,17 +53,30 @@ function buildTable(data) {
 
   table.innerHTML = "";
 
-  for (var i = 0; i < data.length; i++) {
+  for (const item in data) {
     var row = `<tr>
-                        <td>${data[i].name}</td>
-                        <td>${data[i].revenue}</td>
-                        <td>${data[i].est_labor_hours}</td>
-                        <td>${data[i].est_labor_hours}</td>
-                        <td>${data[i].est_labor_expense}</td>
-                        <td>${data[i].est_labor_expense}</td>
-                        <td>${data[i].act_start_date}</td>
+                        <td>${data[item].project_name}</td>
+                        <td>${data[item].fin_act_revenue}</td>
+                        <td>${data[item].fin_est_labor_hours}</td>
+                        <td>${data[item].fin_act_labor_hours}</td>
+                        <td>${data[item].fin_est_labor_expense}</td>
+                        <td>${data[item].fin_act_labor_expense}</td>
+                        <td>${data[item].act_start_date}</td>
                    </tr>`;
 
     table.innerHTML += row;
   }
+}
+for (const item in project_list) {
+    // console.log(item)
+  console.log(project_list[item])
+}
+
+// function optionChange(value) {
+//   for(const item in project_list) {
+//       console.log(item)
+      // console.log(project_list[item])
+      
+      
+    }
 }

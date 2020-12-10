@@ -165,7 +165,7 @@ def dashboard():
             project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
-        pprint(project_list)
+            # pprint(project_list)
 
         # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
         # with open('static/result.json', 'w') as fp:

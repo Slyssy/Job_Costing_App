@@ -192,37 +192,109 @@
             </tr>
           </thead>
           <tbody>
+            
+            
             <tr>
-              <th scope="row">Project Revenue:</th>
-              <td>{{New Project Revenue}}</td>
-              <td>{{New Project Revenue}}</td>            
+              <th scope="row">Project Revenue:</th>              
+              <td>
+                {% for project in project_list %}                  
+                {{ project[0].fin_est_revenue }}
+                {% endfor %}
+              </td>                           
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_est_revenue }}
+                {% endfor %}   
+              </td>                      
             </tr>
             <tr>
               <th scope="row">Project Labor Hours:</th>
-              <td>{{New Project Labor Hours}}</td>
-              <td>{{From Timesheet}}</td>            
+              <td>
+              {% for project in project_list %} 
+              {{ project[0].fin_est_labor_hours }}
+              {% endfor %}
+              </td>              
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_act_labor_hours }}
+                {% endfor %}
+              </td>                           
             </tr>
             <tr>
               <th scope="row">Project Labor Rate:</th>
-              <td>{{New Project Labor Rate}}</td>
-              <td>{{From Timesheet}}</td>            
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_est_labor_rate }}
+                {% endfor %}
+              </td>
+               
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_act_labor_rate }}
+                {% endfor %}
+              </td>  
+                         
             </tr>
             <tr>
               <th scope="row">Project Labor Expense:</th>
-              <td>{{New Project Labor Expense}}</td>
-              <td>{{LH x LR}}</td>            
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_est_labor_expense }}
+                {% endfor %}
+              </td>
+               
+              
+              <td>
+                {% for project in project_list %} 
+                {{ project[0].fin_act_labor_expense }}
+                {% endfor %} 
+              </td>
+                          
             </tr>
             <tr>
               <th scope="row">Project Gross Profit:</th>
-              <td>{{New Project Gross Profit}}</td>
-              <td>{{Rev - LE}}</td>           
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_est_gross_profit }}
+                {% endfor %}
+              </td>
+               
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_act_gross_profit }}
+                {% endfor %}
+              </td> 
+                         
             </tr>
             <tr>
               <th scope="row">Project Gross Margin:</th>
-              <td>{{New Project Gross Margin}}</td>
-              <td>{{(GP / Rev) x 100}}</td>
+              
+              <td>
+                {% for project in project_list %} 
+                {{ project[0].fin_est_gross_margin }}
+                {% endfor %} 
+              </td>
+              
+               
+              <td>
+                {% for project in project_list %}
+                {{ project[0].fin_act_gross_margin }}
+                {% endfor %}
+              </td>
+               
             </tr>
+            
           </tbody>
+Collapse
+
+
+
+
         </table>
       </div>    
     <!-- Start Visualizations -->
@@ -264,3 +336,6 @@
     <script src="{{ url_for('static', filename='d3.js') }}"></script>
   </body>
 </html>
+<!-- {% for project in projects %}
+  <li><a href = "{{ projects[project].url }}">{{ projects[project].title }}</a> </li>
+{% endfor %} -->
