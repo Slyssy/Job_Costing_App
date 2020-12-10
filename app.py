@@ -138,6 +138,9 @@ def dashboard():
             project_dict["timesheets"] = timesheet_all
             project_list["project_id: "+ str(project_id)] = project_dict
 
+            # Add project ID
+            project_dict['id'] = str(project_id)
+
             # Calculations for Project Financials - Budgeted/Estimated
             fin_est_revenue = revenue
             project_dict['fin_est_revenue '] = f'{float(revenue):,}'
@@ -165,7 +168,7 @@ def dashboard():
             project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
-            # pprint(project_list)
+        pprint(project_list)
 
         # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
         # with open('static/result.json', 'w') as fp:
@@ -388,7 +391,19 @@ def time_html_to_db():
             return render_template('error.html', error_type=db_write_error)
         return render_template('project_details.html')
 
-      
+@app.route("/search")
+def search():
+    name = request.args.get("name")
+    if request.method == 'GET':
+        # Fetch all employee names from database for dropdown menu
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM project_details WHERE project_id='" + name + "';")
+        project_details_data = cur.fetchall()
+        print('------------------------------------------------------------')
+        print('All employee names fetched from database for dropdown list')
+        print('------------------------------------------------------------')
+    return render_template('search.html', name=name, project_details_data=project_details_data)
+
 # Close database connection
     if(conn):
         cur.close()
