@@ -11,12 +11,12 @@ $("#dashboard_search").on("keyup", function () {
 function searchTable(value, data) {
   let filteredData = [];
 
-  for (var i = 0; i < data.length; i++) {
+  for (const item in data) {
     value = value.toLowerCase();
-    let name = data[i].name.toLowerCase();
+    let name = data[item].project_name.toLowerCase();
 
     if (name.includes(value)) {
-      filteredData.push(data[i]);
+      filteredData.push(data[item]);
     }
   }
 
@@ -45,7 +45,6 @@ $('th').on('click', function(){
   buildTable(project_list)
 })
 
-// let dashData = project_list.project_id;
 
 buildTable(project_list);
 
