@@ -41,7 +41,11 @@
       type="text/css"
     />
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheet.css') }}"
+    />
     ​
   </head>
   <body>
@@ -155,18 +159,15 @@
         $("#datetimepicker-end").datetimepicker({});
       </script>
 
-      <!-- <script>
-        $(function() {
-            //default intialize
-            $('#dp0').datetimepicker();
-        </script> -->
+     
       ​
       <script>
         const dropdown_dict = {{ dropdown_dict | safe }}
         console.log(dropdown_dict)
       </script>
 
+<script src="{{ url_for('static', filename='enterTime.js') }}"></script>
 
-    </div>
+</div>
   </body>
 </html>
