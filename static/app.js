@@ -55,7 +55,9 @@ function buildTable(data) {
 
   for (const item in data) {
     var row = `<tr>
+
                         <td><a href="/search?project_id=${data[item].id}">${data[item].project_name}</a></td>
+
                         <td>${data[item].fin_act_revenue}</td>
                         <td>${data[item].fin_est_labor_hours}</td>
                         <td>${data[item].fin_act_labor_hours}</td>
