@@ -14,9 +14,6 @@ pg_username = os.getenv("pg_username")
 pg_password = os.getenv("pg_password")
 pg_dbname = os.getenv("pg_dbname")
 
-# Import Postgres database details from config file
-from postgres_config import pg_ipaddress, pg_port, pg_username, pg_password, pg_dbname
-
 # Setup connection with Postgres
 try:
        conn = psycopg2.connect(dbname=pg_dbname, host=pg_ipaddress, user=pg_username, password=pg_password)
