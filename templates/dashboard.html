@@ -145,10 +145,7 @@
       class="container dashboard_visualizations"
     >
       <div class="row">
-        <div class="col-md-6">
-          <div id="bar"></div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div id="time_series"></div>
         </div>
       </div>
@@ -163,7 +160,6 @@
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="{{ url_for('static', filename='d3.js') }}"></script>
     <script src="{{ url_for('static', filename='app2.js') }}"></script>
-    <script src="{{ url_for('static', filename='app3.js') }}"></script>
   </body>
 </html>
 <!-- {% for project in projects %}
