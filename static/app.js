@@ -55,7 +55,9 @@ function buildTable(data) {
 
   for (const item in data) {
     var row = `<tr>
-                        <td>${data[item].project_name}</td>
+
+                        <td><a href="/search?project_id=${data[item].id}">${data[item].project_name}</a></td>
+
                         <td>${data[item].fin_act_revenue}</td>
                         <td>${data[item].fin_est_labor_hours}</td>
                         <td>${data[item].fin_act_labor_hours}</td>
@@ -72,11 +74,4 @@ for (const item in project_list) {
   console.log(project_list[item])
 }
 
-// function optionChange(value) {
-//   for(const item in project_list) {
-//       console.log(item)
-      // console.log(project_list[item])
-      
-      
-    // }
-// }
+
