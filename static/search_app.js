@@ -8,7 +8,7 @@ let trace1 ={
     name: "Budgeted Labor Expense",
     type: 'bar',
     marker: {
-        color: 'rgb(219, 217, 217)',
+        color: 'rgb(27, 113, 242)',
         opacity: 0.5
     }
 };
@@ -42,13 +42,13 @@ let trace3 ={
     name: "Budgeted Labor Hours",
     type: 'bar',
     marker: {
-        color: 'rgb(219, 217, 217)',
+        color: 'rgb(27, 113, 242)',
         opacity: 0.5
     }
 };
 
 let trace4 ={
-    x: ["Act. Labor Hours     "],
+    x: ["Act. Labor Hours"],
     y: [values[11]],
     name: "Actual Labor Hours",
     type: 'bar',
