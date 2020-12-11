@@ -33,7 +33,7 @@
       rel="stylesheet"
       type="text/css"
     />
-<!-- Plotly CDN -->
+    <!-- Plotly CDN -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <link
@@ -81,7 +81,7 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/new_project">Create New Project</a>
-                </li> 
+                </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/new_user">Create User</a>
                 </li>
@@ -90,25 +90,25 @@
           </nav>
         </div>
       </div>
-    </div>    
+    </div>
     <div class="container table_container">
       <table class="table table-striped">
         <thead>
-          <tr>            
+          <tr>
             <th scope="col">Revenue</th>
             <th scope="col">Budget Labor Hours</th>
             <th scope="col">Actual labor Hours</th>
             <th scope="col">Budget Labor Expense</th>
-            <th scope="col">Actual Labor Expense</th>            
+            <th scope="col">Actual Labor Expense</th>
           </tr>
         </thead>
         <tbody>
-          <tr>            
+          <tr>
             <td>$ {{project_dict.fin_act_revenue}}</td>
             <td>{{project_dict.fin_est_labor_hours}}</td>
             <td>{{project_dict.fin_act_labor_hours}}</td>
             <td>$ {{project_dict.fin_est_labor_expense}}</td>
-            <td>$ {{project_dict.fin_act_labor_expense}}</td>            
+            <td>$ {{project_dict.fin_act_labor_expense}}</td>
           </tr>
         </tbody>
       </table>
@@ -128,113 +128,114 @@
     <div class="container project_updates_container">
       <div class="card border-primary h-100">
         <div class="row" style="padding: 15px 0">
-          
-            <div class="col-lg-5 px-md-5">
-              <label class="form-control-label text-muted">Start Date:</label>
-                <input class="form-control" type="text" placeholder={{project_dict.act_start_date}}>
-                </div> 
-                <!-- Begin Form -->
-                <form action="/search" method="POST" style="width: 500px; margin: auto">
-                <!-- Project End Date -->
-                <div class="form-group row was-validated">
-
-                <div class="col-lg-5  px-md-5">
-                    <label class="form-control-label text-muted">End Date:</label>
-                    <input id="end_datepicker" name=end_date type = "text" />
-                </div>               
-   
-                <script>
-                    $('#end_datepicker').datepicker({
-                    });
-                </script>
-                <div class="col-lg-2">
-                  <input type="reset" class="btn btn-outline-secondary mr-2" value="Cancel">
-                  <input type="submit" value="Submit">           
-                </div>
-        </div>  
-    </div> 
-  </div> 
-</div> 
-     <!--Project Financials  -->
-    <div class="container financials_container">
-      <div class="card bg-primary text-white h-100">
-        <div class="card-body d-flex flex-column align-items-start">
-          <h4 class="card-title">Project Financials</h4>
-        </div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Budgeted</th>
-            <th scope="col">Actual</th>            
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Project Revenue:</th>
-            <td>$ {{project_dict.fin_act_revenue}}</td>
-            <td>$ {{project_dict.fin_act_revenue}}</td>            
-          </tr>
-          <tr>
-            <th scope="row">Project Labor Hours:</th>
-            <td>{{project_dict.fin_est_labor_hours}}</td>
-            <td>{{project_dict.fin_act_labor_hours}}</td>            
-          </tr>
-          <tr>
-            <th scope="row">Project Labor Rate:</th>
-            <td>$ {{project_dict.fin_est_labor_rate}} / Hour</td>
-            <td>$ {{project_dict.fin_act_labor_rate}} / Hour</td>            
-          </tr>
-          <tr>
-            <th scope="row">Project Labor Expense:</th>
-            <td>$ {{project_dict.fin_est_labor_expense}}</td>
-            <td>$ {{project_dict.fin_act_labor_expense}}</td>            
-          </tr>
-          <tr>
-            <th scope="row">Project Gross Profit:</th>
-            <td>$ {{project_dict.fin_est_gross_profit}}</td>
-            <td>$ {{project_dict.fin_act_gross_profit}}</td>           
-          </tr>
-          <tr>
-            <th scope="row">Project Gross Margin:</th>
-            <td>{{project_dict.fin_est_gross_margin}}</td>
-            <td>{{project_dict.fin_act_gross_margin}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="container visualizations_container">
-      <div
-        class="card bg-primary text-white h-100"
-        style="margin: 30px 0px 30px 0px"
-      >
-        <div class="card-body d-flex flex-column align-items-start">
-          <h4 class="card-title">Estimate vs. Actual Visualization</h4>
-          <p class="card-text">
-            The bar charts below visualize this project's estimate to actual labor values.
-          </p>
-        </div>
-      </div>
-   
-      <div class="row">
-        <div class="col-md-6">
-          <div id="eva_exp_bar"></div>
-        </div>
-        <div class="col-md-6">
-          <div id="eva_hr_bar"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div id="eva_gp_bar"></div>
+          <div class="col-lg-5 px-md-5">
+            <label class="form-control-label text-muted">Start Date:</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="{{project_dict.act_start_date}}"
+            />
           </div>
+          <div class="col-lg-5 px-md-5">
+            <label class="form-control-label text-muted">End Date:</label>
+            <input id="end_datepicker" name="end_date" type="text" />
+          </div>
+          <script>
+            $("#end_datepicker").datepicker({});
+          </script>
+          <div class="col-lg-2">
+            <input
+              type="reset"
+              class="btn btn-outline-secondary mr-2"
+              value="Cancel"
+            />
+            <input type="submit" class="btn btn-primary mr-2" value="Submit" />
+          </div>
+        </div>
+      </div>
+
+      <!--Project Financials  -->
+      <div class="container financials_container">
+        <div class="card bg-primary text-white h-100">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h4 class="card-title">Project Financials</h4>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Budgeted</th>
+              <th scope="col">Actual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Project Revenue:</th>
+              <td>$ {{project_dict.fin_act_revenue}}</td>
+              <td>$ {{project_dict.fin_act_revenue}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Hours:</th>
+              <td>{{project_dict.fin_est_labor_hours}}</td>
+              <td>{{project_dict.fin_act_labor_hours}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Rate:</th>
+              <td>$ {{project_dict.fin_est_labor_rate}} / Hour</td>
+              <td>$ {{project_dict.fin_act_labor_rate}} / Hour</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Labor Expense:</th>
+              <td>$ {{project_dict.fin_est_labor_expense}}</td>
+              <td>$ {{project_dict.fin_act_labor_expense}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Gross Profit:</th>
+              <td>$ {{project_dict.fin_est_gross_profit}}</td>
+              <td>$ {{project_dict.fin_act_gross_profit}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Project Gross Margin:</th>
+              <td>{{project_dict.fin_est_gross_margin}}</td>
+              <td>{{project_dict.fin_act_gross_margin}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container visualizations_container">
+        <div
+          class="card bg-primary text-white h-100"
+          style="margin: 30px 0px 30px 0px"
+        >
+          <div class="card-body d-flex flex-column align-items-start">
+            <h4 class="card-title">Estimate vs. Actual Visualization</h4>
+            <p class="card-text">
+              The bar charts below visualize this project's estimate to actual
+              labor values.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div id="eva_exp_bar"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="eva_hr_bar"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="eva_gp_bar"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
+  <script>
+    const project_dict = {{ project_dict | safe }}
+  </script>
+  <script src="{{ url_for('static', filename='search_app.js') }}"></script>
 </html>
-<script>
-  const project_dict = {{ project_dict | safe }}
-
-</script>
-<script src="{{ url_for('static', filename='search_app.js') }}"></script>
