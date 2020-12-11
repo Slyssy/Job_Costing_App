@@ -57,31 +57,35 @@ function buildPlot(data){
   var trace1 = {
     x: dates,
     y: est_labor_exp,
+    thickness: 1 * 1000 * 60 * 60 * 24 * 30,
     type: 'bar',
     name: 'Estimated Labor Expense',
+    text: est_hours,
     marker: {
-     color: 'rgb(49,130,189)',
+     color: 'rgb(27, 113, 242)',
      opacity: 0.7,
     }
   }
   var trace2 = {
     x: dates,
     y: act_labor_exp,
+    thickness: 1 * 1000 * 60 * 60 * 24 * 30,
     type: 'bar',
     name: 'Actual Labor Expense',
+    text: act_hours,
     marker: {
-      color: 'rgb(204,204,204)',
-      opacity: 0.5
+      color: 'rgb(235, 40, 40)',
+      opacity: 0.5,
     }
   }
   var data = [trace1, trace2];
 
   var layout = {
-    title: 'January 2020 Through December 2020',
+    title: 'January 2020 Through January 2021',
     xaxis: {
      tickangle: -45
     },
-    barmode: 'group'
+    barmode: 'group', 
   };
 
   Plotly.newPlot('time_series', data, layout)
