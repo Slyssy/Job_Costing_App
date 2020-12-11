@@ -12,3 +12,18 @@
 /* #datepicker > span:hover {
   cursor: pointer;
 } */
+
+body {
+  margin: center;
+  width: 75%;
+  /* background-color: blueviolet; */
+}
+
+/* form {
+  position : relative;
+  width  : 740px;
+  height : 498px;
+  margin : 0 auto;
+  padding: 1em;
+  box-sizing: border-box;
+}S */
