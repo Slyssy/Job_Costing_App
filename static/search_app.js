@@ -1,22 +1,6 @@
-console.log("HelloWorld")
-
-console.log(project_dict)
-
 let keys = Object.keys(project_dict)
-console.log(keys)
 
 let values = Object.values(project_dict)
-console.log(values)
-
-// let estx = [keys[7]];
-// console.log(estx)
-// let actx = [keys[13]]
-// console.log(actx)
-// let esty = [values[7]];
-// console.log(esty)
-// let acty = [values[13]]
-// console.log(acty)
-
 
 let trace1 ={
     x: ["Bdg. Labor Exp."],
