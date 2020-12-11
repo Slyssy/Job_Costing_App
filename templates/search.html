@@ -34,7 +34,7 @@
       type="text/css"
     />
 <!-- Plotly CDN -->
-    <script src="plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <link
       rel="stylesheet"
@@ -113,7 +113,7 @@
         </tbody>
       </table>
     </div>
-    <!-- Quick Project Updates -->
+    <!-- Project Milestone Dates -->
     <div class="container project_updates_container">
       <div class="card bg-primary text-white h-100">
         <div class="card-body d-flex flex-column align-items-start">
@@ -148,6 +148,7 @@
                 </div>
         </div>  
     </div> 
+  </div> 
      <!--Project Financials  -->
     <div class="container financials_container">
       <div class="card bg-primary text-white h-100">
@@ -206,17 +207,17 @@
         <div class="card-body d-flex flex-column align-items-start">
           <h4 class="card-title">Estimate vs. Actual Visualization</h4>
           <p class="card-text">
-            The bar chart below visualizes this project's actual labor expense
-            vs. its budgeted labor expense.
+            The bar charts below visualize this project's estimate to actual labor values.
           </p>
         </div>
       </div>
-    </div>
-
-    <div class="container project_visualizations">
+   
       <div class="row">
-        <div class="col-md-12">
-          <div id="eva_bar"></div>
+        <div class="col-md-6">
+          <div id="eva_exp_bar"></div>
+        </div>
+        <div class="col-md-6">
+          <div id="eva_hr_bar"></div>
         </div>
       </div>
     </div>
@@ -224,6 +225,6 @@
 </html>
 <script>
   const project_dict = {{ project_dict | safe }}
-  // console.log(project_dict)
+
 </script>
 <script src="{{ url_for('static', filename='search_app.js') }}"></script>
