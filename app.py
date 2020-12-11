@@ -368,20 +368,19 @@ def project_search():
 
         # Create a dictionary with project_details table data chosen, and output as a JSON      
         if project_id:
-            return render_template('search.html', project_id=project_id, project_dict=project_dict)
+            return render_template('search.html', project_dict=project_dict)
         else:
             return redirect(url_for('dashboard_data'))
 
-    if not project_dict:
-        db_read_error = 'Oops - could not read from database!'
-        return render_template('error.html', error_type=db_read_error)  
+        if not project_dict:
+            db_read_error = 'Oops - could not read from database!'
+            return render_template('error.html', error_type=db_read_error)  
 
     if request.method == 'POST':
         act_end_date = request.form['end_date']
         cur = conn.cursor()
         # Adding project end date to Project_Details table in database
         try:
-            # cur.execute(INSERT INTO project_details (act_comp_date) VALUES (' + act_end_date + ');') 
             cur.execute("INSERT INTO project_details (act_comp_date) VALUES (%s)", (act_end_date)) 
             print('-----------------------------------')
             print('Data added to database - woohoo!')
