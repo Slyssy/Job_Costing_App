@@ -33,8 +33,14 @@
       rel="stylesheet"
       type="text/css"
     />
+<!-- Plotly CDN -->
+    <script src="plotly-latest.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheet.css') }}"
+    />
   </head>
   <body>
     <!-- Project Name, Address and Navbar -->
@@ -219,5 +225,8 @@
     </div>
   </body>
 </html>
-
+<script>
+  const project_dict = {{ project_dict | safe }}
+  // console.log(project_dict)
+</script>
 <script src="{{ url_for('static', filename='search_app.js') }}"></script>
