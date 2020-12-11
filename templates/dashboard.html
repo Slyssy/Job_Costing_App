@@ -110,12 +110,12 @@
       <table id="dashboard" class="table table-striped">
         <thead>
           <tr>
-            <th data-column="name" data-order="desc">Project Name &#9660</th>            
-            <th data-column="revenue" data-order="desc">Revenue ($)</th>
+            <th data-column="name" data-order="desc">Project Name</th>            
+            <th data-column="revenue" data-order="desc">Revenue</th>
             <th data-column="bdgHours" data-order="desc">BDG Hours</th>
             <th data-column="actHours" data-order="desc">ACT Hours</th>
-            <th data-column="bdgLabExp" data-order="desc">BDG Lab Exp ($)</th>
-            <th data-column="actLabExp" data-order="desc">ACT Lab Exp ($)</th>           
+            <th data-column="bdgLabExp" data-order="desc">BDG Lab Exp</th>
+            <th data-column="actLabExp" data-order="desc">ACT Lab Exp</th>           
             <th data-column="startDate" data-order="desc">Start Date</th>
           </tr>
         </thead>
@@ -123,180 +123,7 @@
         <tbody id="dashboardTable"></tbody>
       </table>
     </div>
-    <!-- Start Project Details-->
-    <div class="container details_container">
-      <div class="card bg-primary text-white h-100">
-        <div class="card-body d-flex flex-column align-items-start">
-          <h4 class="card-title">Project Details</h4>
-        </div>
-      </div>      
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Project Status</th>
-              <th scope="col">Revenue</th>
-              <th scope="col">Budget Labor Hours</th>
-              <th scope="col">Actual labor Hours</th>
-              <th scope="col">Budget Labor Expense</th>
-              <th scope="col">Actual Labor Expense</th>            
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>          
-    </div>  
-     <!-- Start Project Milestone Dates -->
-     <div class="container project_updates_container">
-      <div class="card bg-primary text-white h-100">
-        <div class="card-body d-flex flex-column align-items-start">
-          <h4 class="card-title">Project Milestone Dates</h4>
-          <p class="card-text">
-            When project is complete, simply use the date picker to select the
-            End Date.
-          </p>
-        </div>
-      </div>
-      <div class="card border-primary h-100">
-        <div class="row" style="padding: 15px 0">
-          
-                <div class="col-lg-6 px-md-5">
-                  <label class="form-control-label text-muted">Start Date:</label>
-                    <input class="form-control" type="text" placeholder="">
-                </div> 
-                <div class="col-lg-6  px-md-5" method="POST">
-                    <label class="form-control-label text-muted">End Date:</label>
-                    <input id="end_datepicker" name=end_date type = "text" />
-                </div>               
-                <script>
-                    $('#start_datepicker').datepicker({
-                    });
-                </script>
-                <script>
-                    $('#end_datepicker').datepicker({
-                    });
-                </script>
-            </div>
-        </div>  
-    </div> 
-      <!--Project Financials  -->
-      <div class="container financials_container">
-        <div class="card bg-primary text-white h-100">
-          <div class="card-body d-flex flex-column align-items-start">
-            <h4 class="card-title">Project Financials</h4>
-          </div>
-        </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Budgeted</th>
-              <th scope="col">Actual</th>            
-            </tr>
-          </thead>
-          <tbody>
-            
-            
-            <tr>
-              <th scope="row">Project Revenue:</th>              
-              <td>
-                {% for project in project_list %}                  
-                {{ project[0].fin_est_revenue }}
-                {% endfor %}
-              </td>                           
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_est_revenue }}
-                {% endfor %}   
-              </td>                      
-            </tr>
-            <tr>
-              <th scope="row">Project Labor Hours:</th>
-              <td>
-              {% for project in project_list %} 
-              {{ project[0].fin_est_labor_hours }}
-              {% endfor %}
-              </td>              
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_act_labor_hours }}
-                {% endfor %}
-              </td>                           
-            </tr>
-            <tr>
-              <th scope="row">Project Labor Rate:</th>
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_est_labor_rate }}
-                {% endfor %}
-              </td>
-               
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_act_labor_rate }}
-                {% endfor %}
-              </td>  
-                         
-            </tr>
-            <tr>
-              <th scope="row">Project Labor Expense:</th>
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_est_labor_expense }}
-                {% endfor %}
-              </td>
-               
-              
-              <td>
-                {% for project in project_list %} 
-                {{ project[0].fin_act_labor_expense }}
-                {% endfor %} 
-              </td>
-                          
-            </tr>
-            <tr>
-              <th scope="row">Project Gross Profit:</th>
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_est_gross_profit }}
-                {% endfor %}
-              </td>
-               
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_act_gross_profit }}
-                {% endfor %}
-              </td> 
-                         
-            </tr>
-            <tr>
-              <th scope="row">Project Gross Margin:</th>
-              
-              <td>
-                {% for project in project_list %} 
-                {{ project[0].fin_est_gross_margin }}
-                {% endfor %} 
-              </td>
-              
-               
-              <td>
-                {% for project in project_list %}
-                {{ project[0].fin_act_gross_margin }}
-                {% endfor %}
-              </td>
-               
-            </tr>
-            
-          </tbody>
-Collapse
-
-
-
-
-        </table>
+    
       </div>    
     <!-- Start Visualizations -->
     <div class="container project_updates_container">

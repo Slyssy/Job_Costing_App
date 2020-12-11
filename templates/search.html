@@ -33,18 +33,24 @@
       rel="stylesheet"
       type="text/css"
     />
+<!-- Plotly CDN -->
+    <script src="plotly-latest.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheet.css') }}"
+    />
   </head>
   <body>
     <!-- Project Name, Address and Navbar -->
     <div class="container top_container">
       <div class="card bg-primary text-white h-100" style="margin-bottom: 50px">
         <div class="card-body d-flex flex-column align-items-start">
-          <h2 class="card-title">{{Project Name}}</h2>
-          <p class="card-text">{{Project Street Address}}</p>
+          <h2 class="card-title">{{project_dict.project_name}}</h2>
+          <p class="card-text">{{project_dict.project_address}}</p>
           <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-2">
-            <a class="btn btn-primary border-white mt-auto" href="/"
+            <a class="btn btn-primary border-white mt-auto" href="/dashboard"
               >Return to Dashboard</a
             >
             <button
@@ -88,8 +94,7 @@
     <div class="container table_container">
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th scope="col">Project Status</th>
+          <tr>            
             <th scope="col">Revenue</th>
             <th scope="col">Budget Labor Hours</th>
             <th scope="col">Actual labor Hours</th>
@@ -98,13 +103,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{{Current Status}}</td>
-            <td>{{Budgeted Revenue}}</td>
-            <td>{{Budgeted Hours}}</td>
-            <td>{{Actual labor Hours}}</td>
-            <td>{{Budget Labor Expense}}</td>
-            <td>{{Actual Labor Expense}}</td>            
+          <tr>            
+            <td>$ {{project_dict.fin_act_revenue}}</td>
+            <td>{{project_dict.fin_est_labor_hours}}</td>
+            <td>{{project_dict.fin_act_labor_hours}}</td>
+            <td>$ {{project_dict.fin_est_labor_expense}}</td>
+            <td>$ {{project_dict.fin_act_labor_expense}}</td>            
           </tr>
         </tbody>
       </table>
@@ -125,11 +129,11 @@
       <div class="card border-primary h-100">
         <div class="row" style="padding: 15px 0">
           
-                <div class="col-lg-6 px-md-5">
+                <div class="col-lg-5 px-md-5">
                   <label class="form-control-label text-muted">Start Date:</label>
-                    <input class="form-control" type="text" placeholder="">
+                    <input class="form-control" type="text" placeholder={{project_dict.act_start_date}}>
                 </div> 
-                <div class="col-lg-6  px-md-5" method="POST">
+                <div class="col-lg-5  px-md-5" method="POST">
                     <label class="form-control-label text-muted">End Date:</label>
                     <input id="end_datepicker" name=end_date type = "text" />
                 </div>               
@@ -141,7 +145,10 @@
                     $('#end_datepicker').datepicker({
                     });
                 </script>
-            </div>
+                <div class="col-lg-2">
+                  <input type="reset" class="btn btn-outline-secondary mr-2" value="Cancel">
+                  <input type="button" class="btn btn-primary mr-2" value="Submit">           
+                </div>
         </div>  
     </div> 
      <!--Project Financials  -->
@@ -162,67 +169,39 @@
         <tbody>
           <tr>
             <th scope="row">Project Revenue:</th>
-            <td>{{New Project Revenue}}</td>
-            <td>{{New Project Revenue}}</td>            
+            <td>$ {{project_dict.fin_act_revenue}}</td>
+            <td>$ {{project_dict.fin_act_revenue}}</td>            
           </tr>
           <tr>
             <th scope="row">Project Labor Hours:</th>
-            <td>{{New Project Labor Hours}}</td>
-            <td>{{From Timesheet}}</td>            
+            <td>{{project_dict.fin_est_labor_hours}}</td>
+            <td>{{project_dict.fin_act_labor_hours}}</td>            
           </tr>
           <tr>
             <th scope="row">Project Labor Rate:</th>
-            <td>{{New Project Labor Rate}}</td>
-            <td>{{From Timesheet}}</td>            
+            <td>$ {{project_dict.fin_est_labor_rate}} / Hour</td>
+            <td>$ {{project_dict.fin_act_labor_rate}} / Hour</td>            
           </tr>
           <tr>
             <th scope="row">Project Labor Expense:</th>
-            <td>{{New Project Labor Expense}}</td>
-            <td>{{LH x LR}}</td>            
+            <td>$ {{project_dict.fin_est_labor_expense}}</td>
+            <td>$ {{project_dict.fin_act_labor_expense}}</td>            
           </tr>
           <tr>
             <th scope="row">Project Gross Profit:</th>
-            <td>{{New Project Gross Profit}}</td>
-            <td>{{Rev - LE}}</td>           
+            <td>$ {{project_dict.fin_est_gross_profit}}</td>
+            <td>$ {{project_dict.fin_act_gross_profit}}</td>           
           </tr>
           <tr>
             <th scope="row">Project Gross Margin:</th>
-            <td>{{New Project Gross Margin}}</td>
-            <td>{{(GP / Rev) x 100}}</td>
+            <td>{{project_dict.fin_est_gross_margin}}</td>
+            <td>{{project_dict.fin_act_gross_margin}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <!-- Project Time Log -->
-    <div class="container time_sheets_container">
-      <div class="card bg-primary text-white h-100">
-        <div class="card-body d-flex flex-column align-items-start">
-          <h4 class="card-title">Project Time Sheets</h4>
-          <p class="card-text">
-            Displays time entries associated with this project.
-          </p>
-        </div>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Employee Name</th>
-            <th scope="col">Start Date/Time</th>
-            <th scope="col">End Date/Time</th>
-            <th scope="col">Hours Worked</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{Employee Name From Timesheet}}</td>
-            <td>{{Start Date/Time From Timesheet}}</td>
-            <td>{{End Date/Time From Timesheet}}</td>
-            <td>{{End datetime - Start Datetime}}</td>
-        </tbody>
-      </table>
-    </div>
-    <div class="container project_updates_container">
+    
+    <div class="container visualizations_container">
       <div
         class="card bg-primary text-white h-100"
         style="margin: 30px 0px 30px 0px"
@@ -246,3 +225,8 @@
     </div>
   </body>
 </html>
+<script>
+  const project_dict = {{ project_dict | safe }}
+  // console.log(project_dict)
+</script>
+<script src="{{ url_for('static', filename='search_app.js') }}"></script>

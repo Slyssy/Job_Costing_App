@@ -52,14 +52,14 @@
           <p class="card-text">
             Fill out the required fields to enter a new project.
           </p>
-          <a href="/" class="btn btn-primary border-white mt-auto"
+          <a href="/dashboard" class="btn btn-primary border-white mt-auto"
             >Return to Dashboard</a
           >
         </div>
       </div>
 
       <!-- Begin Form -->
-      <form action="" method="POST" style="width: 500px; margin: auto">
+      <form action="/new_project" method="POST" style="width: 500px; margin: auto">
         <!-- Project Name: This is a required field -->
         <div class="form-group row was-validated">
           <label class="col-lg-3 col-form-label form-control-label text-muted"
@@ -291,9 +291,5 @@
         </div>
       </form>
     </div>
-    <script>
-      const project_list = {{ project_list | safe }}
-      console.log(project_list)
-    </script>
   </body>
 </html>

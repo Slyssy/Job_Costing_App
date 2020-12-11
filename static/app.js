@@ -22,30 +22,9 @@ function searchTable(value, data) {
 
   return filteredData;
 }
-// Sort Table
-$('th').on('click', function(){
-  let column = $(this).data('column')
-  let order = $(this).data('order')
-  let arrow = $(this).html()
-  arrow = arrow.substring(0, arrow.length - 1)
 
 
-  if(order == 'desc'){
-    $(this).data('order', "asc")
-    desc_project_list = project_list.sort((a,b) => a[column] > b[column] ? 1 :
-    -1)
-    arrow += '&#9660'
-  }else{
-    $(this).data('order', "desc")
-    asc_project_list = project_list.sort((a,b) => a[column] < b[column] ? 1 :
-    -1)
-    arrow += '&#9650'
-  }
-  $(this).html(arrow)
-  buildTable(project_list)
-})
-
-
+// Begin Build Table Javascript
 buildTable(project_list);
 
 function buildTable(data) {
@@ -55,12 +34,14 @@ function buildTable(data) {
 
   for (const item in data) {
     var row = `<tr>
-                        <td>${data[item].project_name}</td>
-                        <td>${data[item].fin_act_revenue}</td>
+
+                        <td><a href="/search?project_id=${data[item].id}">${data[item].project_name}</a></td>
+
+                        <td>$ ${data[item].fin_act_revenue}</td>
                         <td>${data[item].fin_est_labor_hours}</td>
                         <td>${data[item].fin_act_labor_hours}</td>
-                        <td>${data[item].fin_est_labor_expense}</td>
-                        <td>${data[item].fin_act_labor_expense}</td>
+                        <td>$ ${data[item].fin_est_labor_expense}</td>
+                        <td>$ ${data[item].fin_act_labor_expense}</td>
                         <td>${data[item].act_start_date}</td>
                    </tr>`;
 
@@ -72,11 +53,4 @@ for (const item in project_list) {
   console.log(project_list[item])
 }
 
-// function optionChange(value) {
-//   for(const item in project_list) {
-//       console.log(item)
-      // console.log(project_list[item])
-      
-      
-    // }
-// }
+
