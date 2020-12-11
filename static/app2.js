@@ -71,7 +71,7 @@ function buildPlot(data){
     name: 'Actual Labor Expense',
     marker: {
       color: 'rgb(204,204,204)',
-      opacity: 0.3
+      opacity: 0.5
     }
   }
   var data = [trace1, trace2];
@@ -86,6 +86,5 @@ function buildPlot(data){
 
   Plotly.newPlot('time_series', data, layout)
   }
-
 
 buildPlot(project_list)

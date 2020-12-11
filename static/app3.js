@@ -54,6 +54,7 @@ function buildPlot(data){
     dates.push(data[item].act_start_date)
   }
 
+  
   var trace1 = {
     x: dates,
     y: est_hours,
