@@ -50,7 +50,7 @@ function buildTable(data) {
 }
 for (const item in project_list) {
     // console.log(item)
-  console.log(project_list[item])
+  // console.log(project_list[item])
 }
 
 

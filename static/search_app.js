@@ -1,5 +1,6 @@
+// Estimated Labor Expense vs. Actual Labor Expense
 let keys = Object.keys(project_dict)
-
+console.log(keys)
 let values = Object.values(project_dict)
 
 let trace1 ={
@@ -36,6 +37,7 @@ let expLayout = {
 
 Plotly.newPlot('eva_exp_bar', expData, expLayout);
 
+// Estimated Labor hours vs Actual Labor Hours
 let trace3 ={
     x: ["Bdg. Labor Hours"],
     y: [values[5]],
@@ -69,3 +71,38 @@ let hourLayout = {
 };
 
 Plotly.newPlot('eva_hr_bar', hourData, hourLayout);
+
+// Estimated Gross Profit vs. Actual Gross Profit
+let trace5 ={
+    x: ["Bdg. Gross Profit"],
+    y: [values[8]],
+    name: "Budgeted Gross Profit",
+    type: 'bar',
+    marker: {
+        color: 'rgb(27, 113, 242)',
+        opacity: 0.5
+    }
+};
+
+let trace6 ={
+    x: ["Act. Gross Profit"],
+    y: [values[14]],
+    name: "Actual Gross Profit",
+    type: 'bar',
+    marker: {
+        color: 'rgb(235, 40, 40)',
+        opacity: 0.5
+    }
+};
+
+let gpData = [trace5, trace6];
+
+let gpLayout = {
+    title: "Estimated vs. Actual Gross Profit",
+    barmode: 'group',
+    yaxis: {
+    title: "Gross Profit"
+    }
+};
+
+Plotly.newPlot('eva_gp_bar', gpData, gpLayout);
