@@ -14,6 +14,10 @@ pg_username = os.getenv("pg_username")
 pg_password = os.getenv("pg_password")
 pg_dbname = os.getenv("pg_dbname")
 
+# Import Postgres database details from config file
+from postgres_config import pg_ipaddress, pg_port, pg_username, pg_password, pg_dbname
+
+
 # Setup connection with Postgres
 try:
        conn = psycopg2.connect(dbname=pg_dbname, host=pg_ipaddress, user=pg_username, password=pg_password)
@@ -61,18 +65,21 @@ def dashboard_data():
             project_dict['project_name'] = str(proj[1])
             street = str(proj[2])
             street2 = str(proj[3])
-            if street2 != "":
-                street2 = street2 + ", "
+            if street2 == 'None':
+                street2 = None
             city = str(proj[4])
             state = str(proj[5])
             zipcode = str(proj[6])
+            zipcode = " " + zipcode
             if street:
                 street = street + ", "
-            if street2:
-                street2 = street2 + ", "
-            if zipcode:
-                zipcode = " " + zipcode    
-            project_dict['project_address'] = street + street2 + city + ", " + state + zipcode
+                if street2:
+                    street2 = street2 + ", "            
+                    project_list['project_address'] = street + street2 + city + ", " + state + zipcode
+                else:
+                    project_list['project_address'] = street + city + ", " + state + zipcode
+            else:
+                project_list['project_address'] = city + ", " + state + zipcode
             revenue = str(proj[7])
             est_labor_rate = str(proj[8])
             est_labor_hours = str(proj[9])
