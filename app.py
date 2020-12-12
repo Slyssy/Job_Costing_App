@@ -60,6 +60,8 @@ def dashboard_data():
             project_id = str(proj[0])
             project_dict['project_name'] = str(proj[1])
             street = str(proj[2])
+            if street == 'None':
+                street = None
             street2 = str(proj[3])
             if street2 == 'None':
                 street2 = None
@@ -71,11 +73,11 @@ def dashboard_data():
                 street = street + ", "
                 if street2:
                     street2 = street2 + ", "            
-                    project_list['project_address'] = street + street2 + city + ", " + state + zipcode
+                    project_dict['project_address'] = street + street2 + city + ", " + state + zipcode
                 else:
-                    project_list['project_address'] = street + city + ", " + state + zipcode
+                    project_dict['project_address'] = street + city + ", " + state + zipcode
             else:
-                project_list['project_address'] = city + ", " + state + zipcode
+                project_dict['project_address'] = city + ", " + state + zipcode
             revenue = str(proj[7])
             est_labor_rate = str(proj[8])
             est_labor_hours = str(proj[9])
@@ -116,9 +118,9 @@ def dashboard_data():
             fin_est_labor_rate = est_labor_rate
             project_dict['fin_est_labor_rate'] = f'{float(fin_est_labor_rate):,}'
             fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
+            project_dict['fin_est_labor_expense'] = "{:.2f}".format(fin_est_labor_expense)
             fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-            project_dict['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
+            project_dict['fin_est_gross_profit'] = "{:.2f}".format(fin_est_gross_profit)
             fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
             project_dict['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
 
@@ -133,7 +135,7 @@ def dashboard_data():
             # project_dict['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
             project_dict['fin_act_labor_expense'] = "{:.2f}".format(fin_act_labor_expense)
             fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-            project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
+            project_dict['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
         # pprint(project_list)
