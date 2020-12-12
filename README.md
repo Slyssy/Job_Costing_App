@@ -1,6 +1,8 @@
 ##### Data Analysis & Visualization Bootcamp, UT-Austin, 12 December 2020
 ##### Team Members: Alicia Pelkey, Amy Banerji, Julie Gandre, Karen Kitchens, Michael Donatucci, Stephen Lyssy
 
+<a href="https://project-2-jobcosting.herokuapp.com/">Deployed Link</a>
+
 # Job Costing App
 
 ## Table of contents:
