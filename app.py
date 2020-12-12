@@ -1,7 +1,7 @@
 # Setup dependencies
 import os
-from flask import Flask, render_template, request, redirect, url_for, json, jsonify
 import psycopg2
+from flask import Flask, render_template, request, redirect, url_for, json, jsonify
 import datetime
 from pprint import pprint
 
@@ -13,9 +13,6 @@ pg_port = os.getenv("pg_port")
 pg_username = os.getenv("pg_username")
 pg_password = os.getenv("pg_password")
 pg_dbname = os.getenv("pg_dbname")
-
-# Import Postgres database details from config file
-# from postgres_config import pg_ipaddress, pg_port, pg_username, pg_password, pg_dbname
 
 # Setup connection with Postgres
 try:
@@ -37,13 +34,15 @@ if conn:
 app = Flask(__name__)
 
 
-# Route for Index page -- the App Homepage
+
+# Route for Index page -- Homepage and Intro to the App
 @app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
 
 
-# Route for Dashboard -- fetches project data from database for display, writes an input field to database
+
+# Route for Project Dashboard -- fetches project data from database for display, writes an input field to database
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard_data():
     if request.method == 'GET':
@@ -67,7 +66,13 @@ def dashboard_data():
             city = str(proj[4])
             state = str(proj[5])
             zipcode = str(proj[6])
-            project_dict['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
+            if street:
+                street = street + ", "
+            if street2:
+                street2 = street2 + ", "
+            if zipcode:
+                zipcode = " " + zipcode    
+            project_dict['project_address'] = street + street2 + city + ", " + state + zipcode
             revenue = str(proj[7])
             est_labor_rate = str(proj[8])
             est_labor_hours = str(proj[9])
@@ -79,7 +84,6 @@ def dashboard_data():
                             
             # Fetch Time_Sheets data for given project_id
             cur = conn.cursor()
-            # print('Project ID = ' + str(project_id))
             cur.execute('SELECT * FROM time_sheets WHERE project_id=' + str(project_id) + ';')
             timesheet_data = cur.fetchall()
             print('------------------------------------------')
@@ -99,8 +103,6 @@ def dashboard_data():
             act_labor_rate = get_actual_labor_rate(timesheet_all, act_labor_hours, conn)
             project_dict["timesheets"] = timesheet_all
             project_list["project_id: "+ str(project_id)] = project_dict
-
-            # Add project ID
             project_dict['id'] = str(project_id)
 
             # Calculations for Project Financials - Budgeted/Estimated
@@ -155,7 +157,8 @@ def dashboard_data():
         return redirect(url_for('dashboard_data'))
 
       
-# Route for Enter New Project page -- saves inputs to db, then redirects to Project Details page
+
+# Route for Enter New Project page -- saves inputs to db, then redirects to Dashboard
 @app.route('/new_project', methods=['GET', 'POST'])
 def new_project_data():
     if request.method == 'GET':
@@ -215,7 +218,8 @@ def new_project_data():
         return redirect(url_for('dashboard_data'))
 
 
-# Route for Enter New User page, saves inputs to db, then redirects to Project Details page
+
+# Route for Enter New User page, saves inputs to db, then redirects to Dashboard
 @app.route('/new_user', methods=['GET', 'POST'])
 def userdata_html_to_db():
     if request.method == 'GET':
@@ -260,7 +264,8 @@ def userdata_html_to_db():
         return redirect(url_for('dashboard_data'))
 
 
-# Route for new Time Entry -- saves inputs to Time_Sheets table in db, then redirects to Project Details page
+
+# Route for new Time Entry -- saves inputs to Time_Sheets table in db, then redirects to Dashboard
 @app.route('/new_time', methods=['GET', 'POST'])
 def time_html_to_db():     
     if request.method == 'GET':
@@ -318,10 +323,14 @@ def time_html_to_db():
         project_name = request.form['project_name']
         # Fetching user_id and project_id from Users and Project Details tables in database  
         cur = conn.cursor() 
-        user_id = cur.execute("SELECT user_id FROM users WHERE name='" + str(employee_name) + "';")
-        full_values_string = "(" + "'" + user_id + "'"
-        project_id = cur.execute('SELECT project_id FROM project_details WHERE name=project_name');
-        full_values_string += "," + "'" + project_id + "'"
+        cur.execute('SELECT user_id FROM users WHERE name=%s;', [employee_name])
+        user_id_fetch = cur.fetchall()
+        for user in user_id_fetch:
+            user_id = user[0]  
+        cur.execute('SELECT project_id FROM project_details WHERE name=%s;', [project_name])
+        project_id_data = cur.fetchall()        
+        for project in project_id_data:
+            project_id = project[0]
 
         # Fetching time data from form input, and formatting it for database entry
         start_time = request.form['start_time']
@@ -329,23 +338,16 @@ def time_html_to_db():
         start_time = datetime.datetime.strptime(start_time, "%m/%d/%Y %H:%M").strftime('%Y-%m-%d %H:%M:%S')
         print('Start timestamp = ' + start_time)
         start_time = str(start_time)
-        full_values_string = ',' + "'" + start_time + "'"
         finish_time = request.form['finish_time']
         finish_time = " ".join(reversed(finish_time.split(" ")))
         finish_time = datetime.datetime.strptime(finish_time, "%m/%d/%Y %H:%M").strftime('%Y-%m-%d %H:%M:%S')
         print('Finish timestamp = ' + finish_time)
         finish_time=str(finish_time)
-        full_values_string += ',' + "'" + finish_time + "'" + ")"
-        print('------------------------------------------------------')
-        print('Data list prepared for Time_Sheets table in database')
-        print('------------------------------------------------------')
-        print(full_values_string)
-        print('------------------------------------------------------')
-        
-        # Adding data to Timesheet table in database  
+
+        # Adding data to Time_Sheets table in database:
         try:
             cur = conn.cursor() 
-            cur.execute('INSERT INTO time_sheets (user_id, project_id, start_time, finish_time) VALUES ' + full_values_string + ';')
+            cur.execute("INSERT INTO time_sheets (user_id, project_id, start_time, finish_time) VALUES (%s, %s, %s, %s)", (user_id, project_id, start_time, finish_time))
             print('-----------------------------------')
             print('Data added to database - woohoo!')
             print('-----------------------------------')
@@ -353,6 +355,7 @@ def time_html_to_db():
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
         return redirect(url_for('dashboard_data'))
+
 
 
 # Route for queried Project_Details pages -- fetches project data from database for display, writes an input field to database
@@ -365,20 +368,20 @@ def project_search():
 
         # Create a dictionary with project_details table data chosen, and output as a JSON      
         if project_id:
-            return render_template('search.html', name=project_id, project_dict=project_dict)
+            return render_template('search.html', project_dict=project_dict)
         else:
             return redirect(url_for('dashboard_data'))
 
-    if not project_list:
-        db_read_error = 'Oops - could not read from database!'
-        return render_template('error.html', error_type=db_read_error)  
+        if not project_dict:
+            db_read_error = 'Oops - could not read from database!'
+            return render_template('error.html', error_type=db_read_error)  
 
     if request.method == 'POST':
         act_end_date = request.form['end_date']
         cur = conn.cursor()
         # Adding project end date to Project_Details table in database
         try:
-            cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
+            cur.execute("INSERT INTO project_details (act_comp_date) VALUES (%s)", (act_end_date)) 
             print('-----------------------------------')
             print('Data added to database - woohoo!')
             print('-----------------------------------')
@@ -387,7 +390,8 @@ def project_search():
             return render_template('error.html', error_type=db_write_error)
         return render_template('search.html')
 
-      
+
+
 # Close database connection
     if(conn):
         cur.close()

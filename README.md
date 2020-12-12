@@ -10,6 +10,7 @@
 * [Improvements](#improvements)
 
 ## General info
+
 Smaller Construction management teams have less resources and time to keep up with their busy days. Other than managing the team and projects they need to focus on the financial timelines and discussing projects with Stakeholders. The Job Costing App will make user experience with project management tools friendlier and allows them to give live updates to their customers, clients, bosses.
 
 This app will allow for the leads to see progress in the financial and day to day workload by tracking and visualizing budgeted labor values and comparing them to the actual labor values. This limits the back and forth of chasing employees around for timesheets and daily progress. Knowing when a project is exceding budgeted time is often the first step to preventing a project from become a major loss.

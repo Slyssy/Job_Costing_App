@@ -6,8 +6,6 @@ $("#dashboard_search").on("keyup", function () {
   buildTable(data);
 });
 
-
-
 function searchTable(value, data) {
   let filteredData = [];
 
@@ -22,7 +20,6 @@ function searchTable(value, data) {
 
   return filteredData;
 }
-
 
 // Begin Build Table Javascript
 buildTable(project_list);
@@ -49,8 +46,6 @@ function buildTable(data) {
   }
 }
 for (const item in project_list) {
-    // console.log(item)
-  console.log(project_list[item])
+  // console.log(item)
+  // console.log(project_list[item])
 }
-
-

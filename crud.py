@@ -25,7 +25,13 @@ def search_by_id(project_id, conn):
         city = str(proj[4])
         state = str(proj[5])
         zipcode = str(proj[6])
-        project_list['project_address'] = street + ", " + street2 + city + ", " + state + " " + zipcode
+        if street:
+            street = street + ", "
+        if street2:
+            street2 = street2 + ", "
+        if zipcode:
+            zipcode = " " + zipcode    
+        project_list['project_address'] = street + street2 + city + ", " + state + zipcode
         revenue = str(proj[7])
         est_labor_rate = str(proj[8])
         est_labor_hours = str(proj[9])

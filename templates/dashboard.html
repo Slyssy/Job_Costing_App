@@ -24,9 +24,8 @@
 
     <!-- d3 CDN -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    
-    <script src="https://d3js.org/d3.v3.min.js"></script>
 
+    <script src="https://d3js.org/d3.v3.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -87,7 +86,7 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/new_project">Create New Project</a>
-                </li>                
+                </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/new_user">Create User</a>
                 </li>
@@ -105,17 +104,17 @@
           type="text"
           placeholder="Search"
           aria-label="Search"
-        />       
+        />
       </form>
       <table id="dashboard" class="table table-striped">
         <thead>
           <tr>
-            <th data-column="name" data-order="desc">Project Name</th>            
+            <th data-column="name" data-order="desc">Project Name</th>
             <th data-column="revenue" data-order="desc">Revenue</th>
             <th data-column="bdgHours" data-order="desc">BDG Hours</th>
             <th data-column="actHours" data-order="desc">ACT Hours</th>
             <th data-column="bdgLabExp" data-order="desc">BDG Lab Exp</th>
-            <th data-column="actLabExp" data-order="desc">ACT Lab Exp</th>           
+            <th data-column="actLabExp" data-order="desc">ACT Lab Exp</th>
             <th data-column="startDate" data-order="desc">Start Date</th>
           </tr>
         </thead>
@@ -123,8 +122,7 @@
         <tbody id="dashboardTable"></tbody>
       </table>
     </div>
-    
-      </div>    
+
     <!-- Start Visualizations -->
     <div class="container project_updates_container">
       <div
@@ -145,10 +143,7 @@
       class="container dashboard_visualizations"
     >
       <div class="row">
-        <div class="col-md-6">
-          <div id="bar"></div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div id="time_series"></div>
         </div>
       </div>
@@ -156,9 +151,8 @@
 
     <script>
       const project_list = {{ project_list | safe }}
-      console.log(project_list)
+      // console.log(project_list)
     </script>
-
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="{{ url_for('static', filename='d3.js') }}"></script>
