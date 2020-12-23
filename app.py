@@ -4,6 +4,8 @@ import psycopg2
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify
 import datetime
 from pprint import pprint
+import smtplib
+from email.message import EmailMessage
 
 from crud import *
 
@@ -29,6 +31,15 @@ if conn:
     conn.autocommit = True
     cur = conn.cursor()
     cur.close()
+
+email_address = os.environ.get('email_user')
+email_password = os.environ.get('email_password')
+
+msg = EmailMessage()
+msg['Subject'] = "This is a test message from Green Team's Job Costing App"
+msg['From'] = email_address
+msg['To'] = 'stephen.lyssy@gmail.com'
+msg.set_content('Just testing email feature on project details.')
 
 # Create Flask app instance
 app = Flask(__name__)
@@ -394,8 +405,11 @@ def project_search():
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
         return render_template('search.html')
+    # E-mail feature
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:    
+        smtp.login(email_address, email_password)
 
-
+        smtp.send_message(msg)
 
 # Close database connection
     if(conn):
