@@ -14,29 +14,84 @@ const mapDayToMonth = data.map(x => ({...x, act_start_date: new Date(x.act_start
 console.log(mapDayToMonth)
 
 // summing revenue per month by using reduce function
-const sumPerMonthEst = mapDayToMonth.reduce(function(allDates, date) {
-  if (allDates.some(function(e) {
-      return e.act_start_date === date.act_start_date
-    })) {
-    allDates.filter(function(e) {
-      return e.act_start_date === date.act_start_date
-    })[0].fin_est_labor_expense += +date.fin_est_labor_expense
-  } else {
-    allDates.push({
-      act_start_date: date.act_start_date,
-      fin_est_labor_expense: +date.fin_est_labor_expense
-    })
+// const sumPerMonthEst = mapDayToMonth.reduce(function(allDates, date) {
+//   if (allDates.some(function(e) {
+//       return e.act_start_date === date.act_start_date
+//     })) {
+//     allDates.filter(function(e) {
+//       return e.act_start_date === date.act_start_date
+//     })[0].fin_est_labor_expense += +date.fin_est_labor_expense
+//   } else {
+//     allDates.push({
+//       act_start_date: date.act_start_date,
+//       fin_est_labor_expense: +date.fin_est_labor_expense
+//     })
+//   }
+//   return allDates
+// }, []);
+// Creating a function to split the date estimated labor
+const mapperEst = single => {
+  let d = single.act_start_date.split('-');
+  let p = Number(single.fin_est_labor_expense);
+  return { year: d[0], month: d[1], fin_est_labor_expense: p };
+}
+
+// function to group by date 
+const reducerEst = (group, current) => {
+  let i = group.findIndex(single => (single.year == current.year && single.month == current.month));
+  if (i == -1) {
+    return [ ...group, current ];
   }
-  return allDates
-}, []);
+  group[i].fin_est_labor_expense += current.fin_est_labor_expense;
+  return group;
+};
 
-console.log(sumPerMonthEst)
+// calling mapper and reducer function to sum estimated labor expense for each month and year
+const sumPerMonthEst = data.map(mapperEst).reduce(reducerEst, []);
+
 // sorting sumPerMonthEst object
-sumPerMonthEst.sort(function(l,r){
-  return l.act_start_date - r.act_start_date;
-});
+sumPerMonthEst.sort((a, b) => a.year.localeCompare(b.year) || a.month - b.month);
+console.log(sumPerMonthEst);
 
+// create nested object for group d3 plot for estimated labor expense
+const Estimated = {sumPerMonthEst}
+console.log(Estimated)
 
+// Creating a function to split the date actual labor expense
+const mapperAct = single => {
+  let d = single.act_start_date.split('-');
+  let p = Number(single.fin_act_labor_expense);
+  return { year: d[0], month: d[1], fin_act_labor_expense: p };
+}
+
+// function to group by date 
+const reducerAct = (group, current) => {
+  let i = group.findIndex(single => (single.year == current.year && single.month == current.month));
+  if (i == -1) {
+    return [ ...group, current ];
+  }
+  group[i].fin_act_labor_expense += current.fin_act_labor_expense;
+  return group;
+};
+
+// calling mapper and reducer function to sum actual labor expense for each month and year
+const sumPerMonthAct = data.map(mapperAct).reduce(reducerAct, []);
+
+// sorting sumPerMonthEst object
+sumPerMonthAct.sort((a, b) => a.year.localeCompare(b.year) || a.month - b.month);
+console.log(sumPerMonthAct);
+
+// create nested object for group d3 plot for actual labor expense
+const Actual = {sumPerMonthAct}
+console.log(Actual)
+
+// creating an array of nested objects for estimated and actual labor expense for d3 grouped bar chart
+estimateActual = [Estimated, Actual]
+console.log(estimateActual)
+// renaming values inside object
+// keysMap = {
+//   act_start_date: 0
+// }
 const svgHeight = 600
 const svgWidth = 1135
 
@@ -67,7 +122,7 @@ const y = d3.scaleLinear()
   .range([chartHeight, 0])
 
 const x = d3.scaleBand()
-  .domain(sumPerMonthEst.map(d => (d.act_start_date)))
+  .domain(sumPerMonthEst.map(d => (d.month)))
   .range([0, chartWidth])
   .padding(0.05)
 
@@ -86,7 +141,7 @@ chartG.selectAll("rect")
 .data(sumPerMonthEst)
 .enter()
 .append("rect")
-.attr("x", d => x(d.act_start_date))
+.attr("x", d => x(d.month))
 .attr("y", d => y(d.fin_est_labor_expense))
 .attr("height", d => chartHeight - y(d.fin_est_labor_expense))
 .attr("width", x.bandwidth())
