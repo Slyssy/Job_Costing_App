@@ -139,7 +139,8 @@
           <form action="/search" method="POST">
             <div class="col-lg-5 px-md-5">
               <label class="form-control-label text-muted">End Date:</label>
-              <input id="end_datepicker" class="form-control" type="text" />
+              <input id="end_datepicker" name="end_date" class="form-control" placeholder={{project_dict.act_end_date}} type="text" />
+              <input id="project_id" name="project_id" value={{ request.args.get('project_id') }} type="hidden" readonly>
             </div>
             <script>
               $("#end_datepicker").datepicker({});

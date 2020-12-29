@@ -14,6 +14,9 @@ pg_username = os.getenv("pg_username")
 pg_password = os.getenv("pg_password")
 pg_dbname = os.getenv("pg_dbname")
 
+# Import Postgres database details from config file
+from postgres_config import pg_ipaddress, pg_port, pg_username, pg_password, pg_dbname
+
 # Setup connection with Postgres
 try:
        conn = psycopg2.connect(dbname=pg_dbname, host=pg_ipaddress, user=pg_username, password=pg_password)
@@ -43,7 +46,7 @@ def index():
 
 
 # Route for Project Dashboard -- fetches project data from database for display, writes an input field to database
-@app.route("/dashboard", methods=['GET', 'POST'])
+@app.route("/dashboard", methods=['GET'])
 def dashboard_data():
     if request.method == 'GET':
         cur = conn.cursor()
@@ -138,28 +141,14 @@ def dashboard_data():
             project_dict['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
-        # pprint(project_list)
-
+        # pprint(project_list)     
+        
         # Create a dictionary of dictionaries with project_details table data chosen, and output as a JSON
         return render_template('dashboard.html', project_list=json.dumps(project_list))
            
     else:
         db_read_error = 'Oops - could not read from database!'
         return render_template('error.html', error_type=db_read_error) 
-
-    if request.method == 'POST':
-        act_end_date = request.form['end_date']
-        cur = conn.cursor()
-        # Adding project end date to Project_Details table in database
-        try:
-            cur.execute('INSERT INTO project_details (act_comp_date) VALUES (act_end_date);') 
-            print('-----------------------------------')
-            print('Data added to database - woohoo!')
-            print('-----------------------------------')
-        except:
-            db_write_error = 'Oops - could not write to database!'
-            return render_template('error.html', error_type=db_write_error)
-        return redirect(url_for('dashboard_data'))
 
       
 
@@ -385,15 +374,24 @@ def project_search():
         act_end_date = request.form['end_date']
         cur = conn.cursor()
         # Adding project end date to Project_Details table in database
+        project_id = request.form['project_id']
+        pprint(project_id)
+       
         try:
-            cur.execute("INSERT INTO project_details (act_comp_date) VALUES (%s)", (act_end_date)) 
+            sql_insert_string = "UPDATE project_details SET act_comp_date = TO_DATE('" + act_end_date + "', 'MM/DD/YYYY') WHERE project_id=" + project_id + ";"
+            print(sql_insert_string)
+            cur.execute(sql_insert_string)                  
             print('-----------------------------------')
             print('Data added to database - woohoo!')
             print('-----------------------------------')
+            project_dict = search_by_id(project_id, conn)
+            pprint(project_dict)
+            return render_template('search.html', project_dict=project_dict)
         except:
             db_write_error = 'Oops - could not write to database!'
             return render_template('error.html', error_type=db_write_error)
         return render_template('search.html')
+        
 
 
 
