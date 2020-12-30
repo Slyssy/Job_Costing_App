@@ -14,9 +14,6 @@ pg_username = os.getenv("pg_username")
 pg_password = os.getenv("pg_password")
 pg_dbname = os.getenv("pg_dbname")
 
-# Import Postgres database details from config file
-# from postgres_config import pg_ipaddress, pg_port, pg_username, pg_password, pg_dbname
-
 # Setup connection with Postgres
 try:
        conn = psycopg2.connect(dbname=pg_dbname, host=pg_ipaddress, user=pg_username, password=pg_password)
@@ -121,9 +118,10 @@ def dashboard_data():
             fin_est_labor_rate = est_labor_rate
             project_dict['fin_est_labor_rate'] = f'{float(fin_est_labor_rate):,}'
             fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
-            project_dict['fin_est_labor_expense'] = "{:.2f}".format(fin_est_labor_expense)
+            project_dict['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
             fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-            project_dict['fin_est_gross_profit'] = "{:.2f}".format(fin_est_gross_profit)
+            # project_dict['fin_est_gross_profit'] = "{:.2f}".format(fin_est_gross_profit)
+            project_dict['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
             fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
             project_dict['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
 
@@ -135,10 +133,10 @@ def dashboard_data():
             fin_act_labor_rate = act_labor_rate
             project_dict['fin_act_labor_rate'] = "{:.2f}".format(fin_act_labor_rate)
             fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
-            # project_dict['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
-            project_dict['fin_act_labor_expense'] = "{:.2f}".format(fin_act_labor_expense)
+            project_dict['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
             fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-            project_dict['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
+            # project_dict['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
+            project_dict['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
             fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
             project_dict['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
         # pprint(project_list)     
