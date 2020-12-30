@@ -1,13 +1,12 @@
-/* #dateRangePicker {
-  padding: 70px 0
+.xAxisLabel {
+  font-size: 3.5em;
+    fill: #635f5d;
+}
 
-} */
+.bars {
+  opacity: 0.5;
+}
 
-/* #datepicker{
-  width: 180px;
-  margin: 0 20px 20px 20px;
-} */
-
-/* #datepicker > span:hover {
-  cursor: pointer;
-} */
+.tick line {
+  stroke: #C0C0BB
+}
