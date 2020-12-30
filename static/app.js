@@ -61,11 +61,29 @@ console.log(projectArray);
 
 projectArray.sort((a, b) => a.project_name !== b.project_name ? a.project_name < b.project_name ? -1 : 1 : 0);
 
+// // Future column sort features code
+// $('th').on('click', function(){
+//   let column = $(this).data('column')
+//   let order = $(this).data('order')
+//   console.log('Column was clicked', column, order)
+
+//   if(order == 'desc'){
+//     $(this).data('order', "asc")
+//   projectArray = projectArray.sort((a,b) => a[column] > b[column] ? 1 : -1)
+// }
+//   else{
+//   $(this).data('order', "desc")
+//   projectArray = projectArray.sort((a,b) => a[column] < b[column] ? 1 : -1)
+// }
+//   buildTable(projectArray)
+// })
+
+
 buildTable(projectArray)
 
 function buildTable(data){
   let table = document.getElementById('dashboardTable')
-
+  table.innerHTML = ''
   for (let i = 0; i < data.length; i++){
     let  row = `<tr>
                              <td><a href="/search?project_id=${data[i].id}">${data[i].project_name}</a></td>
