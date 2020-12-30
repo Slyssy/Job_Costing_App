@@ -3,7 +3,7 @@ projectArray = Object.keys(project_list).map((i) => project_list[i]);
 // console.log(projectArray)
 
 // Filtering data to be used for plot
-const chartData = projectArray.map(({act_start_date, fin_est_labor_expense, fin_act_labor_expense}) => ({act_start_date, fin_est_labor_expense: parseFloat(fin_est_labor_expense), fin_act_labor_expense: parseFloat(fin_act_labor_expense)}));
+const chartData = projectArray.map(({act_start_date, fin_est_labor_expense, fin_act_labor_expense}) => ({act_start_date, fin_est_labor_expense: parseFloat((fin_est_labor_expense).replace(/,/g, '')), fin_act_labor_expense: parseFloat((fin_act_labor_expense).replace(/,/g, ''))}));
 // console.log(chartData)
 
 // Grouping dates into months and summing estimated and actual labor expense by month
