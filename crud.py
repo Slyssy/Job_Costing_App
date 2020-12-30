@@ -78,7 +78,8 @@ def search_by_id(project_id, conn):
         fin_est_labor_expense = float(fin_est_labor_hours) * float(fin_est_labor_rate)
         project_list['fin_est_labor_expense'] = f'{float(fin_est_labor_expense):,}'
         fin_est_gross_profit = float(fin_est_revenue) - fin_est_labor_expense
-        project_list['fin_est_gross_profit'] = "{:.2f}".format(fin_est_gross_profit)
+        # project_list['fin_est_gross_profit'] = "{:.2f}".format(fin_est_gross_profit)
+        project_list['fin_est_gross_profit'] = f'{float(fin_est_gross_profit):,}'
         fin_est_gross_margin = float(fin_est_gross_profit) / float(fin_est_revenue) * 100
         project_list['fin_est_gross_margin'] = "{:.2f}".format(fin_est_gross_margin) + " %"
 
@@ -92,7 +93,8 @@ def search_by_id(project_id, conn):
         fin_act_labor_expense = float(fin_act_labor_hours) * float(fin_act_labor_rate)
         project_list['fin_act_labor_expense'] = f'{float(fin_act_labor_expense):,}'
         fin_act_gross_profit = float(fin_act_revenue) - float(fin_act_labor_expense)
-        project_list['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
+        # project_list['fin_act_gross_profit'] = "{:.2f}".format(fin_act_gross_profit)
+        project_list['fin_act_gross_profit'] = f'{float(fin_act_gross_profit):,}'
         fin_act_gross_margin = float(fin_act_gross_profit) / float(fin_act_revenue) * 100
         project_list['fin_act_gross_margin'] = "{:.2f}".format(fin_act_gross_margin) + " %"
 
