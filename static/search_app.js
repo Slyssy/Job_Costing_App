@@ -1,7 +1,8 @@
 // Estimated Labor Expense vs. Actual Labor Expense
 let keys = Object.keys(project_dict);
-console.log(keys);
+
 let values = Object.values(project_dict);
+
 
 let trace1 = {
   x: ["Bdg. Labor Exp."],
