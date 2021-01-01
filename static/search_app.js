@@ -1,8 +1,12 @@
-// Estimated Labor Expense vs. Actual Labor Expense
+// // Estimated Labor Expense vs. Actual Labor Expense
 // let keys = Object.keys(project_dict);
+
+// const filter = ["Labor Expense", "Labor_Hours"]
 
 // let values = Object.values(project_dict);
 // console.log(project_dict)
+// console.log(values)
+// console.log(keys)
 
 // let trace1 = {
 //   x: ["Bdg. Labor Exp."],
@@ -108,108 +112,110 @@
 
 // Plotly.newPlot("eva_gp_bar", gpData, gpLayout);
 
+// console.log(project_dict)
+
+// Function to grab data from object necessary to create plots 
+function dataGrab1({fin_est_labor_expense, fin_act_labor_expense}) {
+  return {'Budgeted Expense' : +fin_est_labor_expense.replace(/,/g, ''), 'Actual Expense' : +fin_act_labor_expense.replace(/,/g, '')}
+}
+
+function dataGrab2({fin_est_labor_hours, fin_act_labor_hours}) {
+  return {'Budgeted Hours': +fin_est_labor_hours, 'Actual Hours': +fin_act_labor_hours}
+}
+
+const grabbedData1 = dataGrab1(project_dict)
+let data1 = Object.keys(grabbedData1).map(e => ({type: e, value: grabbedData1[e]}))
+console.log(data1)
+
+const grabbedData2 = dataGrab2(project_dict)
+let data2 = Object.keys(grabbedData2).map(e => ({type: e, value: grabbedData2[e]}))
+console.log(data2)
 
 
-const margin = {top: 70, right: 20, bottom: 70, left: 100},
+// set the dimensions and margins of the graph
+var margin = {top: 70, right: 30, bottom: 70, left: 120},
     width = 1135 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
-// Setting x Scale
-const x = d3.scaleBand()
-.rangeRound([0, width], .05)
-.padding(0.1);
-
-// Setting y Scale
-const y = d3.scaleLinear().range([height, 0]);
-
-// Building xAxis
-const xAxis = d3.axisBottom()
-    .scale(x)
-
-// Building y Axis
-const yAxis = d3.axisLeft()
-    .scale(y)
-    .ticks(10);
-
-// Appending svg to dashboard.html ("#estimate-to-actual")
-const svg = d3.select("#estimate-to-actual").append("svg")
+// append the svg object to the body of the page
+var svg = d3.select("#eva_exp_bar")
+  .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// Parsing through data to pull data needed for bars and x axis
-data.forEach(d => {
-   d.act_start_date = d.month;
-  d.fin_act_labor_expense = +d.fin_act_labor_expense;
-});
+// Initialize the X axis
+var x = d3.scaleBand()
+  .range([ 0, width ])
+  .padding(0.2);
+var xAxis = svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
 
-// Setting domain for x and y scales
-  x.domain(data.map(d => d.month));
-  y.domain([0, d3.max(data, d => d.fin_est_labor_expense)]); 
+// Initialize the Y axis
+var y = d3.scaleLinear()
+  .range([ height, 0]);
+var yAxis = svg.append("g")
+  .attr("class", "myYaxis") 
 
-  // Appending a group to the svg and adding the x axis to that group.
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis.ticks(null).tickSize(0))
-
- // Appending a group to the svg and adding the y axis with labels and to that group.
-  svg.append("g")
-      // .attr("class", "y axis")
-      .call(yAxis.ticks(null).tickSize(-width))       
-      
-// Defining and placing bars
-  svg.selectAll("bar")
-      .data(data)
-    .enter().append("rect")
-      .style("fill", d => d.fin_act_labor_expense < d.fin_est_labor_expense ? '#1b71f2': '#eb2828')
-      .attr("class", "bars")
-      .attr("x", d => x(d.act_start_date))
-      .attr("width", x.bandwidth())
-      .attr("y", d => y(d.fin_act_labor_expense))
-      .attr("height", d => height - y(d.fin_act_labor_expense))
-      .attr("opacity", ".5");
-  
-// Defining limit lines for estimated labor expense
-  svg.selectAll("lines")
-      .data(data)
-    .enter().append("line")
-      .style("fill", 'none')
-  		.attr("x1", d => x(d.act_start_date) + x.bandwidth() +5)
-      .attr("x2", d => x(d.act_start_date) -5)
-   .attr("y1", d => y(+d.fin_est_labor_expense))
-      .attr("y2", d => y(+d.fin_est_labor_expense))
-  		.style("stroke-dasharray", [6,2])
-  		.style("stroke", "#eb2828")
-  .style("stroke-width", 3)
-
-// Adding x Axis labels
-svg.append ('text')
-    .attr("class", 'xAxis')
-    .attr("y", 525)
-    .attr("x", width/2)
+  yAxis
+  .append('text')
+    .attr('class', 'yAxis')
+    .attr('y', -90)
+    .attr('x', -80)
+    .attr('transform', `rotate(-90)`)
     .attr("fill", "#635f5d")
     .style('font-size', '2.5em')
-    .text( "Months")
+    .text("Labor Expense ($) / Labor Hours")
 
-// Adding y Axis labels
-    svg.append('text')
-      .attr('class', 'yAxis')
-      .attr('y', -55)
-      .attr('x', -380)
-      .attr('fill', 'black')
-      .attr('transform', `rotate(-90)`)
-      .attr("fill", "#635f5d")
-      .style('font-size', '2.5em')
-      .text("Labor Expense ($)");
-      
-// Adding Title
-  svg.append ('text')
-      .attr("class", "Title")
-      .attr("y", -20)
-      .attr("x", 160)
-      .attr("fill", "#635f5d")
-      .style("font-size", "3.5em")
-      .text("Estimate vs. Actual Labor Expense")
+   svg.append('text')
+    .attr('y', -10)
+    .attr('x', 310)
+    .attr('class', 'title')
+    .text("Estimate vs. Actual")
+    .attr("fill", "#635f5d")
+    .style('font-size', '3em')
+
+
+// A function that create / update the plot for a given variable:
+function update(data) {
+
+  // Update the X axis
+  x.domain(data.map(function(d) { return d.type; }))
+  xAxisG = xAxis.call(d3.axisBottom(x))
+
+  xAxisG
+  // .style("color", "#635f5d")
+  // .style('font-size', '2.0em')
+
+  // Update the Y axis
+  y.domain([0, d3.max(data, function(d) { return d.value }) ]);
+  yAxis.transition().duration(1000).call(d3.axisLeft(y));
+
+  // Create the u variable
+  var u = svg.selectAll("rect")
+    .data(data)
+
+  u
+    .enter()
+    .append("rect") // Add a new rect for each new elements
+    .merge(u) // get the already existing elements as well
+    .transition() // and apply changes to all of them
+    .duration(1000)
+      .attr("x", function(d) { return x(d.type); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("fill", "#eb2828")
+      .style("opacity", "0.5")
+      // "#1b71f2", "#eb2828"
+  // If less group in the new dataset, I delete the ones not in use anymore
+  u
+    .exit()
+    .remove()
+}
+
+
+// Initialize the plot with the first dataset
+update(data1)

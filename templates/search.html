@@ -36,6 +36,9 @@
     <!-- Plotly CDN -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+    <!-- D3 CDN -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -223,6 +226,8 @@
 
         <div class="row">
           <div class="col-md-6">
+            <button class="btn btn-primary mr-2" onclick="update(data1)">Labor Expense</button>
+            <button class="btn btn-primary mr-2" onclick="update(data2)">Labor Hours</button>
             <div id="eva_exp_bar"></div>
           </div>
           <div class="col-md-6">
