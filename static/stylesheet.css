@@ -10,3 +10,8 @@
 .tick line {
   stroke: #C0C0BB
 }
+
+.tick text {
+  font-size: 2.5em;
+  fill: #635f5d;
+}
