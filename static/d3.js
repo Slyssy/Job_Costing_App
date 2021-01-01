@@ -41,7 +41,7 @@ const data = data0.map(
 console.log(data)
 
 // Defining margins for plot
-const margin = {top: 70, right: 20, bottom: 70, left: 100},
+const margin = {top: 70, right: 20, bottom: 70, left: 125},
     width = 1135 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
@@ -128,7 +128,7 @@ svg.append ('text')
 // Adding y Axis labels
     svg.append('text')
       .attr('class', 'yAxis')
-      .attr('y', -55)
+      .attr('y', -95)
       .attr('x', -380)
       .attr('fill', 'black')
       .attr('transform', `rotate(-90)`)
